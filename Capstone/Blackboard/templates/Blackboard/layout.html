@@ -10,10 +10,43 @@
     </head>
     <body>
         <div class='index_wrapper'>
-          <div class='nav_div'>
-            {% comment %} Tu damy nawigację {% endcomment %}
+          <nav>
+          <div id='nav_div'>
+            <div class='nav_div_item'>
+            <h1>Restaurant</h1>
+            </div>
+            <ul class='navbar-nav'>
+            {% if not user.is_authenticated %}
+            <div class='nav_div_item'>
+            <li class='nav-item'>
+              <a class='nav-link' href="{% url 'login' %}">Login</a>
+            </li>
+            </div>
+            {% else %}
+            <div class='nav_div_item'>
+            <p> Logged in as {{ user.type }}</p>
+            </div>
+            <div class='nav_div_item'>
+            <li class='nav-item'>
+              <a class='nav-link' href="{% url 'logout'%}">Logout</a>
+            </li>
+            </div>
+            <div class='nav_div_item'>
+              <a class='nav-link' href="{% url 'new_blackboard' %}"> Create new blackboard </a>
+            </div>
+            <div class='nav_div_item'>
+              <a class='nav-link' href="{% url 'browse' %}"> Browse Ingredients </a>
+            </div>
+            {% endif %}
+            </ul>
           </div>
-          <div>
+          </nav>
+          <div id='main_page'>
+            <button id='menu_button' data-type='open' onclick='Nav(this)'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+              </svg>
+            </button>
             {% block body %}
             {% endblock %}
           </div>

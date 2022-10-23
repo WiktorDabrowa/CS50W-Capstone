@@ -1,15 +1,17 @@
 {% extends 'Blackboard/layout.html' %}
 {% block body %}
-  {% for recipe in blackboard.recipes.all %}
-  <h1>{{recipe}} | {{recipe.price}}</h1>
-  <h2>
+<div class='blackboard'>
+  {% for recipe in blackboard %}
+  <h2>{{recipe}} | {{recipe.price}} | {{recipe.type}}</h2>
+  <h4>
   {% for ingredient in recipe.key_ingredients.all %}
-    {{ingredient}}/
+    {{ingredient}} /
   {% endfor%}
   {%for ingredient in recipe.ingredients.all %}
     {{ingredient}}/
   {% endfor %}
-  </h2>
+  </h4>
   {% endfor %}
+</div>
 
 {% endblock %}
