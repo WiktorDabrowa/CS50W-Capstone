@@ -39,7 +39,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("staff"))
         else:
             return render(request, "Blackboard/login.html", {
                 "message": "Invalid username and/or password."
@@ -50,14 +50,13 @@ def login_view(request):
 def logout_view(request):
   logout(request)
   return HttpResponseRedirect(reverse("index"))
+
 #@login_required
 def staff(request):
-  # All of the CRUD operations
-  # if user.type = 'Boss' ...
-  pass
-
-def new_blackboard(request):
-  pass
-
-def browse(request):
-  pass
+  
+  user = request.user
+  
+  context = {
+    'user_type': user.type
+  }
+  return render(request, 'Blackboard/staff.html',context)

@@ -9,7 +9,7 @@
         <script src="{% static 'Blackboard/script.js' %}"></script>
     </head>
     <body>
-        <div class='index_wrapper'>
+        <div class='wrapper'>
           <nav>
           <div id='nav_div'>
             <div class='nav_div_item'>
@@ -32,17 +32,14 @@
             </li>
             </div>
             <div class='nav_div_item'>
-              <a class='nav-link' href="{% url 'new_blackboard' %}"> Create new blackboard </a>
-            </div>
-            <div class='nav_div_item'>
-              <a class='nav-link' href="{% url 'browse' %}"> Browse Ingredients </a>
+              <a class='nav-link' href="{% url 'staff' %}"> Staff </a>
             </div>
             {% endif %}
             </ul>
           </div>
           </nav>
           <div id='main_page'>
-            <button id='menu_button' data-type='open' onclick='Nav(this)'>
+            <button id='menu_button' data-type='open' onclick='nav_toggle(this)'>
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-list" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
               </svg>

@@ -1,0 +1,28 @@
+{% extends 'Blackboard/layout.html' %}
+
+{% block body %}
+<div class='staff'>
+  <nav class='staff_nav'>
+    <div class='staff_menu'>
+        <div id='ingredients_tab' class='nav_div_item staff_tab'>
+          <a class='nav-link'>Ingredients</a>
+        </div>
+        <div id='recipes_tab' class='nav_div_item staff_tab'>
+          <a class='nav-link'>Recipes</a>
+        </div>
+        <div id='blackboards_tab' class='nav_div_item staff_tab'>
+          <a class='nav-link'>Blackboards</a>
+        </div>
+    </div>
+  </nav>
+    <div class='browse' id='ingredients_tab_div'>
+      Ingredients
+    </div>
+    <div class='browse' id='recipes_tab_div'>
+      Recipes
+    </div>
+    <div class='browse' id='blackboards_tab_div'>
+      Blackboards
+    </div>
+</div>
+{% endblock %}

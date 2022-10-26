@@ -1,18 +1,30 @@
-
-.index_wrapper{
-  display:flex;
-  flex-direction: row;
+:root{
+  --gray: #31343a;
+  --yellow: #f7b414;
+  --dark_yellow: #b28211;
+}
+html, body {
+  width:100%;
+  margin:0
+}
+.wrapper{
+}
+.staff_wrapper{
+  flex:1
 }
 #nav_div{
-  background-color: #f7b414;
+  background-color: var(--yellow);
   transition-duration: 0.5s;
   z-index:1;
   width:0;
-  height:100vh;
+  height:100%;
   white-space: nowrap;
   display:flex;
   flex-direction: column;
-  
+  position:fixed;
+  top:0;
+  left:0;
+  overflow-x: hidden;
   padding-top: 2em
 }
 .nav_div_item {
@@ -20,11 +32,11 @@
 }
 #main_page{
   position:relative;
-  padding-top: 3em;
   padding-left: 1em;
-  background-color: #31343a;
+  background-color: var(--gray);
   color:white;
-  width: 100%
+  display: flex;
+  transition:margin-left .5s;
 }
 #menu_button {
   position:absolute;
@@ -51,7 +63,7 @@
   width:20em
 }
 #login_button{
-  background-color: #f7b414;
+  background-color: var(--yellow);
   padding: 0.3em 1em 0.3em 1em;
   border:none;
   border-radius:10px;
@@ -67,4 +79,61 @@ div .login {
 .form-group {
   display:flex;
   justify-content: center;
+}
+.staff_nav{
+  flex:1
+}
+.staff_menu {
+  height: 4em;
+  display:flex;
+  flex-direction: row;
+  padding-left:8em;
+  gap: 20px;
+  align-items: flex-end;
+  justify-content: space-around;
+  width:50%;
+}
+
+.staff_tab {
+  width: 15em;
+  border-radius: 4px;
+  height: 3em;
+  cursor:pointer;
+}
+
+.staff_tab > .nav-link{
+  padding-top: 1em;
+}
+.staff_tab[data-mode='selected']{
+  background-color:var(--dark_yellow);
+  border-radius: 1.5em 1.5em 0 0;
+  position:relative;
+}
+.staff_tab[data-mode='not_selected']{
+  background-color: var(--gray);
+}
+.staff_tab::before{
+content:'';
+position:absolute;
+height: 3em;
+width:3em;
+border-radius: 1.5em;
+left:-3em;
+box-shadow: 1.5em 1.5em  var(--dark_yellow);
+}
+.staff_tab::after{
+content:'';
+position:absolute;
+height: 3em;
+width:3em;
+top:0em;
+right:-3em;
+border-radius: 1.5em;
+box-shadow: -1.5em 1.5em  var(--dark_yellow);
+}
+
+.browse {
+  background-color: #b28211;
+  display:none;
+  height: 100vw;
 }
