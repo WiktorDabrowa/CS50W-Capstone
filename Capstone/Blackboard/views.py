@@ -75,7 +75,7 @@ def get_items(requst, db_item):
   if requst.method == 'GET':
     if db_item == 'recipe':
       query = Recipe.objects.all()
-      return JsonResponse(serializers.serialize('json', query, use_natural_foreign_keys=True), safe=False)
+      return JsonResponse(serializers.serialize('json', query, use_natural_foreign_keys=True, indent=2), safe=False)
     elif db_item == 'ingredients':
       pass
     elif db_item == 'blackboard':

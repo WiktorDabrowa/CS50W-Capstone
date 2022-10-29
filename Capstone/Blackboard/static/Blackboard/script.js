@@ -42,8 +42,9 @@ function get_db_item(item){
   fetch(`/get_items/${item}`)
   .then(response => response.json())
   .then(items => {
-    console.log(items);
-
+    
+    //Formatting data received from the server
+    const data = JSON.parse(items)
     
 });
 }
