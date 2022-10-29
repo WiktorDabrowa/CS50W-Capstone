@@ -4,25 +4,32 @@
 <div class='staff'>
   <nav class='staff_nav'>
     <div class='staff_menu'>
-        <div id='ingredients_tab' class='nav_div_item staff_tab'>
+        <div data-mode='selected' id='ingredients_tab' class='nav_div_item staff_tab'>
           <a class='nav-link'>Ingredients</a>
         </div>
-        <div id='recipes_tab' class='nav_div_item staff_tab'>
+        <div data-mode='not_selected' id='recipes_tab' class='nav_div_item staff_tab'>
           <a class='nav-link'>Recipes</a>
         </div>
-        <div id='blackboards_tab' class='nav_div_item staff_tab'>
+        <div data-mode='not_selected' id='blackboards_tab' class='nav_div_item staff_tab'>
           <a class='nav-link'>Blackboards</a>
         </div>
     </div>
   </nav>
-    <div class='browse' id='ingredients_tab_div'>
-      Ingredients
+    <div class='browse initial' id='ingredients_tab_div'>
+      Ingredients TODO
     </div>
     <div class='browse' id='recipes_tab_div'>
-      Recipes
+      <div class='recipe_filter'>
+        Tu pola do Filtrowania
+      </div>
+      {% for recipe in recipes %}
+      <div class='db_item'>
+        {{recipe}}
+      </div>
+      {% endfor %}
     </div>
     <div class='browse' id='blackboards_tab_div'>
-      Blackboards
+      Blackboards TODO
     </div>
 </div>
 {% endblock %}

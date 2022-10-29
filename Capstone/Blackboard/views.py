@@ -2,9 +2,10 @@ from datetime import datetime
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
-
-
-from .models import Blackboard
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.core import serializers
+from .models import *
 
 # Create your views here.
 
@@ -51,12 +52,32 @@ def logout_view(request):
   logout(request)
   return HttpResponseRedirect(reverse("index"))
 
-#@login_required
+@login_required(login_url = '/login')
 def staff(request):
-  
+  ingredients = Ingredient.objects.all()
+  pastas = Pasta.objects.all()
+  key_ingredients = KeyIngredient.objects.all()
+  recipes = Recipe.objects.all()
+  blackboards = Blackboard.objects.all()
   user = request.user
-  
   context = {
-    'user_type': user.type
+    'user_type': user.type,
+    'ingredients': ingredients,
+    'pastas':pastas,
+    'key_ingredients':key_ingredients,
+    'recipes':recipes,
+    'blackboards':blackboards
   }
   return render(request, 'Blackboard/staff.html',context)
+
+
+def get_items(requst, db_item):
+  if requst.method == 'GET':
+    if db_item == 'recipe':
+      query = Recipe.objects.all()
+      return JsonResponse(serializers.serialize('json', query, use_natural_foreign_keys=True), safe=False)
+    elif db_item == 'ingredients':
+      pass
+    elif db_item == 'blackboard':
+      pass
+  

@@ -7,8 +7,6 @@ html, body {
   width:100%;
   margin:0
 }
-.wrapper{
-}
 .staff_wrapper{
   flex:1
 }
@@ -88,52 +86,86 @@ div .login {
   display:flex;
   flex-direction: row;
   padding-left:8em;
-  gap: 20px;
+  gap: 1em;
   align-items: flex-end;
   justify-content: space-around;
   width:50%;
 }
 
 .staff_tab {
-  width: 15em;
-  border-radius: 4px;
+  width: 25em;
   height: 3em;
   cursor:pointer;
+  border-radius: 1.5em 1.5em 0 0;
+  position:relative;
 }
 
 .staff_tab > .nav-link{
   padding-top: 1em;
+  z-index:3;
 }
 .staff_tab[data-mode='selected']{
   background-color:var(--dark_yellow);
-  border-radius: 1.5em 1.5em 0 0;
-  position:relative;
 }
 .staff_tab[data-mode='not_selected']{
   background-color: var(--gray);
 }
-.staff_tab::before{
-content:'';
-position:absolute;
-height: 3em;
-width:3em;
-border-radius: 1.5em;
-left:-3em;
-box-shadow: 1.5em 1.5em  var(--dark_yellow);
+.staff_tab[data-mode='not_selected']:hover{
+  background-color: var(--dark_yellow);
+  opacity:0.5;
+  transform:scale(1)
 }
-.staff_tab::after{
-content:'';
-position:absolute;
-height: 3em;
-width:3em;
-top:0em;
-right:-3em;
-border-radius: 1.5em;
-box-shadow: -1.5em 1.5em  var(--dark_yellow);
+.staff_tab[data-mode='not_selected']:hover:before{
+  content:'';
+  position:absolute;
+  height: 3em;
+  width:3em;
+  border-radius: 1.5em;
+  left:-3em;
+  box-shadow: 1.5em 1.5em  rgba(178, 130, 17);
+}
+.staff_tab[data-mode='not_selected']:hover:after{
+  content:'';
+  position:absolute;
+  height: 3em;
+  width:3em;
+  border-radius: 1.5em;
+  right:-3em;
+  top:0em;
+  box-shadow: -1.5em 1.5em  rgba(178, 130, 17);
+}
+.staff_tab[data-mode='selected']::before{
+  content:'';
+  position:absolute;
+  height: 3em;
+  width:3em;
+  border-radius: 1.5em;
+  left:-3em;
+  box-shadow: 1.5em 1.5em  var(--dark_yellow);
+}
+.staff_tab[data-mode='selected']::after{
+  content:'';
+  position:absolute;
+  height: 3em;
+  width:3em;
+  top:0em;
+  right:-3em;
+  border-radius: 1.5em;
+  box-shadow: -1.5em 1.5em  var(--dark_yellow);
+  z-index:0
 }
 
 .browse {
   background-color: #b28211;
   display:none;
   height: 100vw;
+  padding: 2em;
+}
+.initial {
+  display:block
+}
+.recipe_filter {
+  height: 100px;
+  width: 100%;
+  background-color: antiquewhite;
 }

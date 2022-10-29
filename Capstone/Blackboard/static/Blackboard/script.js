@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () =>{
-  const selected = []
   const tabs = document.querySelectorAll('.staff_tab')
   tabs.forEach(tab => {
     tab.addEventListener('click', () => Select(tab.id))
@@ -37,4 +36,14 @@ function Select(tab){
     document.getElementById(`${tab.id}_div`).style.display = 'none'
   }
 })
+}
+
+function get_db_item(item){
+  fetch(`/get_items/${item}`)
+  .then(response => response.json())
+  .then(items => {
+    console.log(items);
+
+    
+});
 }
