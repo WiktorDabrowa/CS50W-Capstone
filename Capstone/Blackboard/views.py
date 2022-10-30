@@ -1,3 +1,4 @@
+from dataclasses import asdict
 from datetime import datetime
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
@@ -6,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.core import serializers
 from .models import *
+from .forms import *
 
 # Create your views here.
 
@@ -54,30 +56,32 @@ def logout_view(request):
 
 @login_required(login_url = '/login')
 def staff(request):
-  ingredients = Ingredient.objects.all()
-  pastas = Pasta.objects.all()
-  key_ingredients = KeyIngredient.objects.all()
-  recipes = Recipe.objects.all()
-  blackboards = Blackboard.objects.all()
+  ingredient_form = IngredientForm()
+  pasta_form = PastaForm()
+  key_ingredient_form = KeyIngredientForm()
+  recipe_form = RecipeForm()
+  blackboard_form = BlackboardForm()
   user = request.user
   context = {
     'user_type': user.type,
-    'ingredients': ingredients,
-    'pastas':pastas,
-    'key_ingredients':key_ingredients,
-    'recipes':recipes,
-    'blackboards':blackboards
+    'ingredient_form': ingredient_form,
+    'pasta_form':pasta_form,
+    'key_ingredient_form':key_ingredient_form,
+    'recipe_form':recipe_form,
+    'blackboard_form':blackboard_form
   }
   return render(request, 'Blackboard/staff.html',context)
 
 
 def get_items(requst, db_item):
+  print(db_item)
   if requst.method == 'GET':
-    if db_item == 'recipe':
+    if db_item == 'recipes':
       query = Recipe.objects.all()
+      print('wysyłam dane')
       return JsonResponse(serializers.serialize('json', query, use_natural_foreign_keys=True, indent=2), safe=False)
     elif db_item == 'ingredients':
       pass
-    elif db_item == 'blackboard':
+    elif db_item == 'blackboards':
       pass
   

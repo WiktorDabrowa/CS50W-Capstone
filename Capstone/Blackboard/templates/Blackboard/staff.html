@@ -15,21 +15,54 @@
         </div>
     </div>
   </nav>
-    <div class='browse initial' id='ingredients_tab_div'>
-      Ingredients TODO
-    </div>
-    <div class='browse' id='recipes_tab_div'>
+    <div class='browse' id='ingredients_tab_div'>
       <div class='recipe_filter'>
         Tu pola do Filtrowania
       </div>
-      {% for recipe in recipes %}
-      <div class='db_item'>
-        {{recipe}}
+      <div id='ingredients_wrapper'>
       </div>
-      {% endfor %}
+    </div>
+    <div class='browse initial' id='recipes_tab_div'>
+      <div class='recipe_filter'>
+        Tu pola do Filtrowania
+      </div>
+      <div class='query' id='recipe_wrapper'>
+        <div class='recipe_container'>
+          <div class='recipe_name column'>
+            Name
+          </div>
+          <div class='recipe_season column'>
+            Season
+          </div>
+          <div class='recipe_type column'>
+            Type
+          </div>
+          <div class='recipe_keyingredient column'>
+            Key Ingredient
+          </div>
+          <div class='recipe_ingretients column'>
+            Ingredients
+          </div>
+          <div class='recipe_pasta column'>
+            Pasta
+          </div>
+          <div class='recipe_price column'>
+            Price
+          </div>
+        </div>
+      </div>
+      <form method='post'>
+        {%for form in recipe_form%}
+        {{form}}
+        {%endfor%}
+      </form>
     </div>
     <div class='browse' id='blackboards_tab_div'>
-      Blackboards TODO
+      <div class='recipe_filter'>
+        Tu pola do Filtrowania
+      </div>
+      <div id='blackboards_wrapper'>
+      </div>
     </div>
 </div>
 {% endblock %}

@@ -169,3 +169,20 @@ div .login {
   width: 100%;
   background-color: antiquewhite;
 }
+
+.query {
+  width:100%;
+  background-color: blue;
+}
+
+.recipe_container{
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  height: 3em;
+  align-items: center;
+}
+
+.column {
+  flex:1
+}
