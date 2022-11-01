@@ -4,10 +4,10 @@
 <div class='staff'>
   <nav class='staff_nav'>
     <div class='staff_menu'>
-        <div data-mode='selected' id='ingredients_tab' class='nav_div_item staff_tab'>
+        <div data-mode='not_selected' id='ingredients_tab' class='nav_div_item staff_tab'>
           <a class='nav-link'>Ingredients</a>
         </div>
-        <div data-mode='not_selected' id='recipes_tab' class='nav_div_item staff_tab'>
+        <div data-mode='selected' id='recipes_tab' class='nav_div_item staff_tab'>
           <a class='nav-link'>Recipes</a>
         </div>
         <div data-mode='not_selected' id='blackboards_tab' class='nav_div_item staff_tab'>
@@ -16,40 +16,54 @@
     </div>
   </nav>
     <div class='browse' id='ingredients_tab_div'>
-      <div class='recipe_filter'>
-        Tu pola do Filtrowania
-      </div>
       <div id='ingredients_wrapper'>
       </div>
     </div>
     <div class='browse initial' id='recipes_tab_div'>
-      <div class='recipe_filter'>
-        Tu pola do Filtrowania
-      </div>
-      <div class='query' id='recipe_wrapper'>
+      <div class='query filters'>
         <div class='recipe_container'>
           <div class='recipe_name column'>
-            Name
+            <input class='recipe filter input' type='search' data-model='recipe' data-name='name' value='Name'>
           </div>
           <div class='recipe_season column'>
-            Season
+            <select class='recipe filter select' data-model='recipe' data-name='season'>
+              <option value=""  selected>Season</option>
+              <option value="Spring">Spring</option>
+              <option value="Summer">Summer</option>
+              <option value="Fall">Fall</option>
+              <option value="Winter">winter</option>
+            </select>
           </div>
           <div class='recipe_type column'>
-            Type
+            <select class='recipe filter select' data-model='recipe' data-name='type'>
+              <option value="" selected>Type</option>
+              <option value="Starter">Starter</option>
+              <option value="Main">Main</option>
+              <option value="Dessert">Dessert</option>
+            </select>
           </div>
           <div class='recipe_keyingredient column'>
-            Key Ingredient
+            <input class='recipe filter input' type='search' data-model='recipe' data-name='key_ingredient' value='Key Ingredient'>
           </div>
           <div class='recipe_ingretients column'>
-            Ingredients
+            <input class='recipe filter input' type='search' data-model='recipe' data-name='ingredients' value='Ingredients'>
           </div>
           <div class='recipe_pasta column'>
-            Pasta
+            <select class='recipe filter select' data-model='recipe' data-name='pasta'>
+              <option value="" selected>Pasta</option>
+              <option value="no pasta">No pasta</option>
+              {% for pasta in pastas %}
+              <option value = {{pasta.name}}>{{pasta.name}}</option>
+              {% endfor %}
+            </select>
           </div>
           <div class='recipe_price column'>
             Price
           </div>
         </div>
+      </div>
+      <div class='query' id='recipe_wrapper'>
+        
       </div>
       <form method='post'>
         {%for form in recipe_form%}

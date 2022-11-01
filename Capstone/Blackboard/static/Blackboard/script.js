@@ -1,9 +1,122 @@
-document.addEventListener('DOMContentLoaded', () =>{
+document.addEventListener('DOMContentLoaded', async () =>{
   const tabs = document.querySelectorAll('.staff_tab')
   tabs.forEach(tab => {
     tab.addEventListener('click', () => Select(tab.id))
   })
+  const input_filters = document.querySelectorAll('.filter.input')
+  input_filters.forEach( filter =>{
+    filter.addEventListener('click', input_filter)
+    console.log('Added event listener')
+  })
+  const select_filters = document.querySelectorAll('.filter.select')
+  select_filters.forEach( filter => {
+    filter.addEventListener('change', select_filter)
+    console.log('Added event listener')
+  })
+  // Get data from async call
+    // Get recipes
+      const recipes = await get_db_item('recipes')
+      present_data(recipes)
+      console.log(typeof recipes)
+    // Get blackboards
+      //let blackboards = await get_db_item('blackboards')
+      //present_data(blackboards)
+    // Get ingredients
+      //let ingredients = await get_db_item('ingredients')
+      //present_data(ingredients)
 })
+
+// Query Filters
+  async function input_filter(obj) {
+    const input = this
+    // Determine what model to filter:
+    if(this.dataset.model === 'recipe'){
+      // Get data from DB
+
+      let data = await get_db_item('recipe')
+
+      // Determine what filter to apply:
+      
+    } else if (this.dataset.model === 'blackboard') {
+      // Code for blackboard
+    } else {
+      // Code for ingredients
+    }
+  }
+  async function select_filter(obj) {
+  const select = this
+  // Determine what model to filter:
+  if (this.dataset.model === 'recipe'){
+    // Get data from DB:
+
+    let data = await get_db_item('recipes')
+
+    // Determine what filter to apply:
+    console.log(this)
+    // Filter by type:
+    if (this.dataset.name === 'type') {
+      if (select.value === '') {
+        new_data = data
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+        console.log(new_data)
+      }
+      else {
+        let new_data = data.filter( function (el) {
+          return el.fields.type === select.value 
+        })
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+        console.log(new_data)
+      }
+    }
+    // Filter by season 
+    else if (this.dataset.name === 'season') {
+      if (select.value === ''){
+        new_data = data
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+        console.log(new_data)
+      } else {
+        let new_data = data.filter( function (el) {
+          return el.fields.season === select.value || el.fields.season === '' 
+        })
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+        console.log(new_data)
+      }
+    } 
+    // Filter by pasta
+    else if (this.dataset.name === 'pasta') {
+      console.log('filtruje po makaronie')
+      if (select.value === ''){
+        new_data = data
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+        console.log(new_data)
+      } else if ( select.value === 'no pasta') {
+        let new_data = data.filter( function(el) {
+          return el.fields.pasta === null
+        })
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+        console.log(new_data)
+      } else {
+        let new_data = data.filter( function (el) {
+          return el.fields.pasta === select.value 
+        })
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+        console.log(new_data)
+      }
+    }
+  } else if ( this.dataset.model ==='blackboard') {
+    // Code for blackboard
+  } else {
+    // Code for ingredients
+  }
+  }
+
 // Get data from server and convert it to JSON
 async function get_db_item(item){
   const response = await fetch(`/get_items/${item}`,{
@@ -13,6 +126,8 @@ async function get_db_item(item){
   let json = JSON.parse(data)
   return json
 }
+
+// Navigation menu 
 function nav_toggle(obj){
   let type = obj.dataset.type
   const nav = document.getElementById('nav_div')
@@ -30,20 +145,15 @@ function nav_toggle(obj){
   }
 }
 
-// Display selected tab => fetch data from server => display data
+// Display selected tab
 function Select(tab){
   console.log(`Tab ${tab} Selected`)
-  var selected = []
+  let selected = []
   selected.push(tab)
   document.querySelectorAll('.staff_tab').forEach(async tab => {
   if (selected.includes(`${tab.id}`)){
     tab.dataset.mode = 'selected';
     document.getElementById(`${tab.id}_div`).style.display = 'block';
-    let str = `${tab.id}`
-    // Get Data from Async call
-    let data = await get_db_item(str.slice(0,-4))
-    console.log(data)
-    present_data(data)
   } else {
     tab.dataset.mode = 'not_selected';
     document.getElementById(`${tab.id}_div`).style.display = 'none'
@@ -53,15 +163,13 @@ function Select(tab){
 
 // display data
 function present_data(data) {
-  console.log(data)
+
   // Extract what model we received to ensure we
   // put it in the right tab
   let id = data[0]['model']
   let tab = id.slice(11)
   if ( tab === 'recipe'){
     data.forEach(item => {
-      console.log('tu')
-      console.log(item)
       const fields = item['fields']
       const wrapper = document.getElementById('recipe_wrapper');
       // Create elements

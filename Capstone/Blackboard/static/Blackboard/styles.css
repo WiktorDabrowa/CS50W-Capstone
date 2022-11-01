@@ -184,5 +184,8 @@ div .login {
 }
 
 .column {
-  flex:1
+  flex:1;
+  border-left: 1px solid black;
+  height: 3em;
+  word-break:break-all
 }

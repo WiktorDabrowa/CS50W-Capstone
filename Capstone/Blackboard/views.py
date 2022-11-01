@@ -56,6 +56,7 @@ def logout_view(request):
 
 @login_required(login_url = '/login')
 def staff(request):
+  pastas = Pasta.objects.all()
   ingredient_form = IngredientForm()
   pasta_form = PastaForm()
   key_ingredient_form = KeyIngredientForm()
@@ -63,6 +64,7 @@ def staff(request):
   blackboard_form = BlackboardForm()
   user = request.user
   context = {
+    'pastas':pastas,
     'user_type': user.type,
     'ingredient_form': ingredient_form,
     'pasta_form':pasta_form,
@@ -74,11 +76,9 @@ def staff(request):
 
 
 def get_items(requst, db_item):
-  print(db_item)
   if requst.method == 'GET':
     if db_item == 'recipes':
       query = Recipe.objects.all()
-      print('wysyłam dane')
       return JsonResponse(serializers.serialize('json', query, use_natural_foreign_keys=True, indent=2), safe=False)
     elif db_item == 'ingredients':
       pass
