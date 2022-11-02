@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
   })
   const input_filters = document.querySelectorAll('.filter.input')
   input_filters.forEach( filter =>{
-    filter.addEventListener('click', input_filter)
+    filter.addEventListener('keyup', input_filter)
     console.log('Added event listener')
   })
   const select_filters = document.querySelectorAll('.filter.select')
@@ -33,9 +33,40 @@ document.addEventListener('DOMContentLoaded', async () =>{
     if(this.dataset.model === 'recipe'){
       // Get data from DB
 
-      let data = await get_db_item('recipe')
+      let data = await get_db_item('recipes')
 
       // Determine what filter to apply:
+
+      // Filter by name:
+      if (input.dataset.name === 'name'){
+        
+        let new_data = data.filter( function(el) {
+          console.log(el)
+          return el.fields.name.toLowerCase().includes(input.value.toLowerCase())
+        })
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+      } 
+      // Filter by Key Ingredient:
+      else if (input.dataset.name === 'key_ingredient') {
+        let new_data = data.filter( function (el){
+          return el.fields.key_ingredients.some(function (key_ingredient){
+            return key_ingredient.toLowerCase().includes(input.value.toLowerCase())
+          })
+        })
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+      }
+      // Filter by Ingredients
+      else if (input.dataset.name === 'ingredients') {
+        let new_data = data.filter( function (el){
+          return el.fields.ingredients.some(function (ingredient){
+            return ingredient.toLowerCase().includes(input.value.toLowerCase())
+          })
+        })
+        document.getElementById('recipe_wrapper').innerHTML = ''
+        present_data(new_data)
+      }
       
     } else if (this.dataset.model === 'blackboard') {
       // Code for blackboard
@@ -52,14 +83,13 @@ document.addEventListener('DOMContentLoaded', async () =>{
     let data = await get_db_item('recipes')
 
     // Determine what filter to apply:
-    console.log(this)
+  
     // Filter by type:
     if (this.dataset.name === 'type') {
       if (select.value === '') {
         new_data = data
         document.getElementById('recipe_wrapper').innerHTML = ''
         present_data(new_data)
-        console.log(new_data)
       }
       else {
         let new_data = data.filter( function (el) {
@@ -67,23 +97,21 @@ document.addEventListener('DOMContentLoaded', async () =>{
         })
         document.getElementById('recipe_wrapper').innerHTML = ''
         present_data(new_data)
-        console.log(new_data)
       }
     }
     // Filter by season 
     else if (this.dataset.name === 'season') {
+      console.log(select.value)
       if (select.value === ''){
         new_data = data
         document.getElementById('recipe_wrapper').innerHTML = ''
         present_data(new_data)
-        console.log(new_data)
       } else {
         let new_data = data.filter( function (el) {
           return el.fields.season === select.value || el.fields.season === '' 
         })
         document.getElementById('recipe_wrapper').innerHTML = ''
         present_data(new_data)
-        console.log(new_data)
       }
     } 
     // Filter by pasta
@@ -93,21 +121,18 @@ document.addEventListener('DOMContentLoaded', async () =>{
         new_data = data
         document.getElementById('recipe_wrapper').innerHTML = ''
         present_data(new_data)
-        console.log(new_data)
       } else if ( select.value === 'no pasta') {
         let new_data = data.filter( function(el) {
           return el.fields.pasta === null
         })
         document.getElementById('recipe_wrapper').innerHTML = ''
         present_data(new_data)
-        console.log(new_data)
       } else {
         let new_data = data.filter( function (el) {
           return el.fields.pasta === select.value 
         })
         document.getElementById('recipe_wrapper').innerHTML = ''
         present_data(new_data)
-        console.log(new_data)
       }
     }
   } else if ( this.dataset.model ==='blackboard') {
@@ -153,7 +178,7 @@ function Select(tab){
   document.querySelectorAll('.staff_tab').forEach(async tab => {
   if (selected.includes(`${tab.id}`)){
     tab.dataset.mode = 'selected';
-    document.getElementById(`${tab.id}_div`).style.display = 'block';
+    document.getElementById(`${tab.id}_div`).style.display = 'flex';
   } else {
     tab.dataset.mode = 'not_selected';
     document.getElementById(`${tab.id}_div`).style.display = 'none'
@@ -163,7 +188,7 @@ function Select(tab){
 
 // display data
 function present_data(data) {
-
+  console.log(data)
   // Extract what model we received to ensure we
   // put it in the right tab
   let id = data[0]['model']
@@ -182,22 +207,30 @@ function present_data(data) {
       const price = document.createElement('div')
       const pasta = document.createElement('div')
        // Assign classes for CSS styling
-       div.classList.add('recipe_container','column')
-       name.classList.add('recipe_name','column')
-       keyingredient.classList.add('recipe_keyingredient','column')
-       type.classList.add('recipe_type','column')
-       season.classList.add('recipe_season','column')
-       ing.classList.add('recipe_ingredient','column')
-       price.classList.add('recipe_price','column')
-       pasta.classList.add('recipe_pasta','column')
+       div.classList.add('recipe_container')
+       name.classList.add('recipe_name','column', 'first', 'wide')
+       keyingredient.classList.add('recipe_keyingredient','column', 'wide')
+       type.classList.add('recipe_type','column','slim')
+       season.classList.add('recipe_season','column','slim')
+       ing.classList.add('recipe_ingredient','column','wide')
+       price.classList.add('recipe_price','column','slim')
+       pasta.classList.add('recipe_pasta','column','slim')
        // Populate with data
        name.innerHTML = fields['name']
        keyingredient.innerHTML = fields['key_ingredients']
        type.innerHTML = fields['type']
+       if (fields['season'] === ''){
+        season.innerHTML = '-'
+       } else {
        season.innerHTML = fields['season']
+       }
        ing.innerHTML = fields['ingredients']
        price.innerHTML = fields['price']
+       if (fields['pasta'] === null) {
+        pasta.innerHTML = '-'
+       } else {
        pasta.innerHTML = fields['pasta']
+       }
        // Place elements in document
        wrapper.append(div)
        div.append(name);

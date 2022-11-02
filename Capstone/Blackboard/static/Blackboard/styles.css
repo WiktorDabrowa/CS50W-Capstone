@@ -4,11 +4,7 @@
   --dark_yellow: #b28211;
 }
 html, body {
-  width:100%;
   margin:0
-}
-.staff_wrapper{
-  flex:1
 }
 #nav_div{
   background-color: var(--yellow);
@@ -30,11 +26,11 @@ html, body {
 }
 #main_page{
   position:relative;
-  padding-left: 1em;
+  padding:0 1em 0 1em;
   background-color: var(--gray);
   color:white;
-  display: flex;
   transition:margin-left .5s;
+  height: 100vh;
 }
 #menu_button {
   position:absolute;
@@ -156,36 +152,74 @@ div .login {
 }
 
 .browse {
+  width:100%;
   background-color: #b28211;
   display:none;
-  height: 100vw;
   padding: 2em;
+  flex-direction: column;
 }
 .initial {
   display:block
 }
 .recipe_filter {
   height: 100px;
-  width: 100%;
   background-color: antiquewhite;
 }
 
 .query {
   width:100%;
-  background-color: blue;
 }
 
 .recipe_container{
-  border: 1px solid black;
   display: flex;
   flex-direction: row;
-  height: 3em;
   align-items: center;
+  margin-top: 1em;
+  height: 2em;
 }
 
 .column {
-  flex:1;
-  border-left: 1px solid black;
-  height: 3em;
-  word-break:break-all
+  height: 2em;
+  text-align: center;
+  min-width: 0;
+  padding:0.25em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color:black;
+  background-color: aliceblue;
+  border-left: 1px solid black
+
+}
+.filter {
+  
+  height: 2em;
+  border:none;
+  text-align: center;
+  padding: none;
+  background-color: var(--yellow);
+}
+.filters > .column{
+  padding:0;
+  background-color:var(--yellow);
+  line-height: 2em;
+}
+.first {
+  border-left:none
+}
+.column:hover{
+  overflow: visible; 
+  white-space: normal;
+  height:auto;
+  word-wrap:break-word;
+}
+input:focus {
+  border:none;
+  outline: none
+}
+.slim {
+  flex:1
+}
+.wide{
+  flex:2
 }
