@@ -13,17 +13,18 @@ document.addEventListener('DOMContentLoaded', async () =>{
     filter.addEventListener('change', select_filter)
     console.log('Added event listener')
   })
-  // Get data from async call
+  // Get data from async call and add HTML elements
     // Get recipes
       const recipes = await get_db_item('recipes')
       present_data(recipes)
       console.log(typeof recipes)
     // Get blackboards
-      //let blackboards = await get_db_item('blackboards')
-      //present_data(blackboards)
+      let blackboards = await get_db_item('blackboards')
+      present_data(blackboards)
     // Get ingredients
-      //let ingredients = await get_db_item('ingredients')
-      //present_data(ingredients)
+      let ingredients = await get_db_item('ingredients')
+      present_data(ingredients)
+      console.log(ingredients)
 })
 
 // Query Filters
@@ -70,8 +71,34 @@ document.addEventListener('DOMContentLoaded', async () =>{
       
     } else if (this.dataset.model === 'blackboard') {
       // Code for blackboard
+      let data = await get_db_item('blackboards')
+      // Determine what filter to apply:
+      
+      if (input.dataset.name === 'date') {
+        let new_data = data.filter( function(el) {
+          return el.fields.date.includes(input.value)
+        })
+        document.getElementById('blackboards_wrapper').innerHTML = ''
+        present_data(new_data)
+      } else {
+        let new_data = data.filter( function (el){
+          return el.fields.recipes.some(function (recipe){
+              return recipe.toLowerCase().includes(input.value.toLowerCase())
+            }
+          )
+        })
+        document.getElementById('blackboards_wrapper').innerHTML = ''
+        present_data(new_data)
+      }
     } else {
       // Code for ingredients
+      let data = await get_db_item('ingredients')
+      // Only 1 input filter to apply
+      let new_data = data.filter(function(el) {
+        return el.fields.name.toLowerCase().includes(input.value.toLowerCase())
+      })
+      document.getElementById('ingredients_wrapper').innerHTML = ''
+      present_data(new_data)
     }
   }
   async function select_filter(obj) {
@@ -116,7 +143,6 @@ document.addEventListener('DOMContentLoaded', async () =>{
     } 
     // Filter by pasta
     else if (this.dataset.name === 'pasta') {
-      console.log('filtruje po makaronie')
       if (select.value === ''){
         new_data = data
         document.getElementById('recipe_wrapper').innerHTML = ''
@@ -135,10 +161,15 @@ document.addEventListener('DOMContentLoaded', async () =>{
         present_data(new_data)
       }
     }
-  } else if ( this.dataset.model ==='blackboard') {
-    // Code for blackboard
   } else {
     // Code for ingredients
+    let data = await get_db_item('ingredients')
+    // Only 1 select filter to apply:
+    let new_data = data.filter( function(el) {
+      return el.model.slice(11).toLowerCase() === select.value.toLowerCase()
+    })
+    document.getElementById('ingredients_wrapper').innerHTML = ''
+    present_data(new_data)
   }
   }
 
@@ -207,7 +238,7 @@ function present_data(data) {
       const price = document.createElement('div')
       const pasta = document.createElement('div')
        // Assign classes for CSS styling
-       div.classList.add('recipe_container')
+       div.classList.add('item_container')
        name.classList.add('recipe_name','column', 'first', 'wide')
        keyingredient.classList.add('recipe_keyingredient','column', 'wide')
        type.classList.add('recipe_type','column','slim')
@@ -243,8 +274,46 @@ function present_data(data) {
   })
   } else if ( tab === 'blackboard') {
     // Code for blackboards
+    data.forEach(item => {
+      const fields = item['fields']
+      const wrapper = document.getElementById('blackboards_wrapper');
+      // Create elements
+      const div = document.createElement('div')
+      const date = document.createElement('div')
+      const recipes = document.createElement('div')
+      // Assign CSS classes
+      div.classList.add('item_container')
+      date.classList.add('blackboard_date','column','first', 'ultra-slim')
+      recipes.classList.add('blackboards_date','column','wide')
+      // Populate with data
+      date.innerHTML = fields['date']
+      recipes.innerHTML = fields['recipes']
+      // Place elements in document
+      wrapper.append(div)
+      div.append(date)
+      div.append(recipes)
+    })
   } else {
     // Code for Ingredients/KeyIngredients/Pastas
+    data.forEach(item => {
+      const fields = item['fields']
+      const wrapper = document.getElementById('ingredients_wrapper')
+      // Create elements 
+      const div = document.createElement('div')
+      const type = document.createElement('div')
+      const name = document.createElement('div')
+      // Assign classes
+      div.classList.add('item_container')
+      type.classList.add('ingredients_type', 'column', 'type','ultra-slim')
+      name.classList.add('ingredients_name', 'column', 'name', 'wide')
+      //Populate with data
+      type.innerHTML = item.model.slice(11).charAt(0).toUpperCase() + item.model.slice(12)
+      name.innerHTML = fields['name']
+      // Place elements in document
+      wrapper.append(div)
+      div.append(type)
+      div.append(name)
+    })
   }
   
 }

@@ -16,12 +16,25 @@
     </div>
   </nav>
     <div class='browse' id='ingredients_tab_div'>
+      <div class = 'filters item_container'>
+        <div class = 'column first ultra-slim'>
+          <select class='select ingredients filter' data-model='ingredients' data-name='type'>
+            <option value='' selected>Type</option>
+            <option value='ingredient'>Ingredient</option>
+            <option value='keyingredient'>Key Ingredient</option>
+            <option value='pasta'>Pasta</option>
+          </select>
+        </div>
+        <div class='column wide'>
+          <input class='input ingredients filter' data-model='ingredients' data-name='name' value='Name'>
+        </div>
+      </div>
       <div id='ingredients_wrapper'>
       </div>
     </div>
     <div class='browse initial' id='recipes_tab_div'>
-        <div class='filters recipe_container'>
-          <div class='recipe_name column first wide'>
+        <div class='filters item_container'>
+          <div class='column first wide'>
             <input class='recipe filter input' type='search' data-model='recipe' data-name='name' value='Name'>
           </div>
           <div class='recipe_season column slim'>
@@ -33,7 +46,7 @@
               <option value="Winter">winter</option>
             </select>
           </div>
-          <div class='recipe_type column slim'>
+          <div class='column slim'>
             <select class='recipe filter select' data-model='recipe' data-name='type'>
               <option value="" selected>Type</option>
               <option value="Starter">Starter</option>
@@ -41,13 +54,13 @@
               <option value="Dessert">Dessert</option>
             </select>
           </div>
-          <div class='recipe_keyingredient column wide'>
+          <div class='column wide'>
             <input class='recipe filter input' type='search' data-model='recipe' data-name='key_ingredient' value='Key Ingredient'>
           </div>
-          <div class='recipe_ingretients column wide'>
+          <div class='column wide'>
             <input class='recipe filter input' type='search' data-model='recipe' data-name='ingredients' value='Ingredients'>
           </div>
-          <div class='recipe_pasta column slim'>
+          <div class='column slim'>
             <select class='recipe filter select' data-model='recipe' data-name='pasta'>
               <option value="" selected>Pasta</option>
               <option value="no pasta">No pasta</option>
@@ -56,12 +69,11 @@
               {% endfor %}
             </select>
           </div>
-          <div class='recipe_price column slim'>
+          <div class='column slim'>
             Price
           </div>
         </div>
-      <div class='query' id='recipe_wrapper'>
-        
+      <div  id='recipe_wrapper'>
       </div>
       {% comment %} <form method='post'>
         {%for form in recipe_form%}
@@ -70,7 +82,16 @@
       </form> {% endcomment %}
     </div>
     <div class='browse' id='blackboards_tab_div'>
+      <div class='filters item_container'>
+        <div class='column first ultra-slim'>
+          <input class='blackboard input filter' type='search' data-model='blackboard' data-name='date' value='Date'>
+        </div>
+        <div class='column wide'>
+          <input class='blackboard input filter' type='search' data-model='blackboard' data-name='recipes' value='Recipes'>
+        </div>
+      </div>
       <div id='blackboards_wrapper'>
+        
       </div>
     </div>
 </div>

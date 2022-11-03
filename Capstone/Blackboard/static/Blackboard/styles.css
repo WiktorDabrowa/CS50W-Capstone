@@ -30,7 +30,7 @@ html, body {
   background-color: var(--gray);
   color:white;
   transition:margin-left .5s;
-  height: 100vh;
+  min-height: 100vh;
 }
 #menu_button {
   position:absolute;
@@ -166,11 +166,7 @@ div .login {
   background-color: antiquewhite;
 }
 
-.query {
-  width:100%;
-}
-
-.recipe_container{
+.item_container{
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -222,4 +218,7 @@ input:focus {
 }
 .wide{
   flex:2
+}
+.ultra-slim {
+  flex:0.5
 }

@@ -75,16 +75,8 @@ class Recipe(models.Model):
   def __str__(self):
     return self.name
   
-  def serialize(self):
-    return {
-      'name':self.name,
-      'season':self.season,
-      'pasta':self.pasta,
-      'key_ingredients':self.key_ingredients,
-      'ingredients':self.ingredients,
-      'price':self.price,
-      'type':self.type
-    }
+  def natural_key(self):
+    return (self.name)
   
 class Blackboard(models.Model):
   date = models.DateField(auto_now_add = True, unique=True)

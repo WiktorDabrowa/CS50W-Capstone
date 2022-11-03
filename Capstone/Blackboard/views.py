@@ -12,8 +12,6 @@ from .forms import *
 # Create your views here.
 
 def index(request):
-  # Login Option for Staff
-  # Blackboard for visitors
   blackboards = Blackboard.objects.all()
   blackboard = list(blackboards[0].recipes.all())
   starters = []
@@ -75,13 +73,19 @@ def staff(request):
   return render(request, 'Blackboard/staff.html',context)
 
 
+# API View
 def get_items(requst, db_item):
   if requst.method == 'GET':
     if db_item == 'recipes':
       query = Recipe.objects.all()
       return JsonResponse(serializers.serialize('json', query, use_natural_foreign_keys=True, indent=2), safe=False)
     elif db_item == 'ingredients':
-      pass
+      ingredients = list(Ingredient.objects.all())
+      key_ing = list(KeyIngredient.objects.all())
+      pastas = list(Pasta.objects.all())
+      query = [*ingredients, *key_ing, * pastas]
+      return JsonResponse(serializers.serialize('json', query, use_natural_foreign_keys=True, indent=2), safe=False)
     elif db_item == 'blackboards':
-      pass
+      query = Blackboard.objects.all()
+      return JsonResponse(serializers.serialize('json', query, use_natural_foreign_keys = True, indent = 2), safe = False)
   
