@@ -304,7 +304,7 @@ function present_data(data) {
       const name = document.createElement('div')
       // Assign classes
       div.classList.add('item_container')
-      type.classList.add('ingredients_type', 'column', 'type','ultra-slim')
+      type.classList.add('ingredients_type', 'column', 'type','ultra-slim', 'first')
       name.classList.add('ingredients_name', 'column', 'name', 'wide')
       //Populate with data
       type.innerHTML = item.model.slice(11).charAt(0).toUpperCase() + item.model.slice(12)

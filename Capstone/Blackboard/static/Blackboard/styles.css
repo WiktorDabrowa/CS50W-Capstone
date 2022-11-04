@@ -209,6 +209,24 @@ div .login {
   height:auto;
   word-wrap:break-word;
 }
+input{
+  width:100%;
+  border:none;
+  background-color: inherit;
+}
+input:focus{
+  border:none;
+  outline:none
+}
+select{
+  width:100%;
+  border:none;
+  background-color: inherit;
+}
+select:focus{
+  border:none;
+  outline:none
+}
 input:focus {
   border:none;
   outline: none
@@ -221,4 +239,17 @@ input:focus {
 }
 .ultra-slim {
   flex:0.5
+}
+.form{
+  position:relative
+}
+.form_button{
+  position:absolute;
+  right:-1em;
+  bottom:0;
+  width:2em;
+  height: 2em;
+  border-radius:1em;
+  border: none;
+  background-color: green;
 }

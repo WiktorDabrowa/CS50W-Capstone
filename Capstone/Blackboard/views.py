@@ -56,8 +56,6 @@ def logout_view(request):
 def staff(request):
   pastas = Pasta.objects.all()
   ingredient_form = IngredientForm()
-  pasta_form = PastaForm()
-  key_ingredient_form = KeyIngredientForm()
   recipe_form = RecipeForm()
   blackboard_form = BlackboardForm()
   user = request.user
@@ -65,17 +63,34 @@ def staff(request):
     'pastas':pastas,
     'user_type': user.type,
     'ingredient_form': ingredient_form,
-    'pasta_form':pasta_form,
-    'key_ingredient_form':key_ingredient_form,
     'recipe_form':recipe_form,
     'blackboard_form':blackboard_form
   }
   return render(request, 'Blackboard/staff.html',context)
 
+def add_item(request, model):
+  if request.method == 'POST':
+    # Processing Pasta/Ingredient/KeyIngredient
+    if model == 'ingredient':
+      print(request.POST)
+      form = IngredientForm(request.POST)
+      if form.is_valid():
+        item = form.cleaned_data
+        if item['type'] == 'Ingredient':
+          Ingredient.objects.create(name=item['name'])
+        elif item['type'] == 'KeyIngredient':
+          KeyIngredient.objects.create(name=item['name'])
+        elif item['type'] == 'Pasta':
+          Pasta.objects.create(name=item['name'])
+    elif model == 'recipe':
+      pass
+    elif model == 'blackboard':
+      pass
+    return HttpResponseRedirect(reverse("staff"))
 
-# API View
-def get_items(requst, db_item):
-  if requst.method == 'GET':
+# API Views
+def get_items(request, db_item):
+  if request.method == 'GET':
     if db_item == 'recipes':
       query = Recipe.objects.all()
       return JsonResponse(serializers.serialize('json', query, use_natural_foreign_keys=True, indent=2), safe=False)

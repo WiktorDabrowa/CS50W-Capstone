@@ -29,6 +29,18 @@
           <input class='input ingredients filter' data-model='ingredients' data-name='name' value='Name'>
         </div>
       </div>
+      <div class='form' id='ingredients_form' display='none'>
+        <form id='ingredient_form' class='item_container' method='Post' action='/add_item/ingredient'>
+          {% csrf_token%}
+          <div class='column first ultra-slim'>
+            {{ ingredient_form.type }}
+          </div>
+          <div class='column wide'>
+          {{ingredient_form.name}}
+          </div>
+        </form>
+        <input class='form_button' form='ingredient_form' value='+' type='submit'>
+      </div>
       <div id='ingredients_wrapper'>
       </div>
     </div>
