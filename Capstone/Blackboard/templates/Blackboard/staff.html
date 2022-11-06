@@ -1,6 +1,36 @@
 {% extends 'Blackboard/layout.html' %}
 
 {% block body %}
+<div class='popup' id='recipe_add'>
+  <form id='recipe_form' method='Post' action='/add_item/recipe'>
+    {% csrf_token %}
+    {% for field in recipe_form %}
+    <div class='form_field'>
+      <h5 class='label'>
+      {{field.label}}
+      </h5>
+      {% if field.name == 'ingredients'%}
+      <div class='dropdown'>
+        <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Ingredients
+        </button>
+        <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
+          {% for ingredient in ingredients %}
+          <p class='dropdown-item'>{{ingredient|capfirst}}</p>
+          {% endfor %}
+        </div>
+      </div>
+      {% elif field.name == 'key_ingredients'%}
+      Tu kluczowe składniki
+      {% else %}
+      {{field}}
+      {% endif %}
+
+    </div>
+    {% endfor %}
+    <input type='submit'>
+  </form>
+</div>
 <div class='main staff'>
   <nav class='staff_nav'>
     <div class='staff_menu'>
@@ -87,11 +117,6 @@
         </div>
       <div  id='recipe_wrapper'>
       </div>
-      {% comment %} <form method='post'>
-        {%for form in recipe_form%}
-        {{form}}
-        {%endfor%}
-      </form> {% endcomment %}
     </div>
     <div class='browse' id='blackboards_tab_div'>
       <div class='filters item_container'>

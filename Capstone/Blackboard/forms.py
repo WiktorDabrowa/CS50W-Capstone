@@ -22,6 +22,8 @@ class RecipeForm(ModelForm):
     model = Recipe
     fields = '__all__'
     
+    field_order = ['name','season','type','key_ingredients','ingredients','pasta','price']
+    
 class BlackboardForm(ModelForm):
   class Meta:
     model = Blackboard

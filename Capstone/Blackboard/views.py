@@ -54,12 +54,16 @@ def logout_view(request):
 
 @login_required(login_url = '/login')
 def staff(request):
+  ingredients = Ingredient.objects.all()
+  key_ingredients = KeyIngredient.objects.all()
   pastas = Pasta.objects.all()
   ingredient_form = IngredientForm()
   recipe_form = RecipeForm()
   blackboard_form = BlackboardForm()
   user = request.user
   context = {
+    'key_ingredients': key_ingredients,
+    'ingredients':ingredients,
     'pastas':pastas,
     'user_type': user.type,
     'ingredient_form': ingredient_form,
