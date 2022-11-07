@@ -1,5 +1,13 @@
 document.addEventListener('DOMContentLoaded', async () =>{
   const tabs = document.querySelectorAll('.staff_tab')
+  const dropdown_buttons = document.querySelectorAll('.dropbtn')
+  dropdown_buttons.forEach(btn => {
+    btn.addEventListener('click', dropdown_toggle)
+  })
+  const dropdown_filters = document.querySelectorAll('.checkbox_filter')
+  dropdown_filters.forEach(input =>{
+    input.addEventListener('keyup', dropdown_filter)
+  })
   tabs.forEach(tab => {
     tab.addEventListener('click', () => Select(tab.id))
   })
@@ -316,4 +324,24 @@ function present_data(data) {
     })
   }
   
+}
+
+// toggle dropdown menu display
+function dropdown_toggle() {
+  document.getElementById(`${this.dataset.assignedto}`).classList.toggle('show')
+}
+
+// Filtering through dropdown menu
+function dropdown_filter() {
+  const div = this.parentElement
+  const filter = this.value.toLowerCase()
+  const items = div.querySelectorAll('label')
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase()
+    if ( text.indexOf(filter) > -1) {
+      item.style.display = ''
+    } else {
+      item.style.display = 'none'
+    }
+  })
 }

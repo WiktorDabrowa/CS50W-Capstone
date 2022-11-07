@@ -10,20 +10,32 @@
       {{field.label}}
       </h5>
       {% if field.name == 'ingredients'%}
-      <div class='dropdown'>
-        <button class='btn btn-secondary dropdown-toggle' type='button' id='dropdownMenuButton' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Ingredients
-        </button>
-        <div class='dropdown-menu' aria-labelledby='dropdownMenuButton'>
-          {% for ingredient in ingredients %}
-          <p class='dropdown-item'>{{ingredient|capfirst}}</p>
-          {% endfor %}
-        </div>
+      <button class='dropbtn' data-assignedTo='dropdown_ingredients'>
+        Ingredients
+      </button>
+      <div class='dropdown' id='dropdown_ingredients'>
+        <input class='checkbox_filter' type='text' placeholder='Filter..'>
+        {{ field }}
       </div>
+      
       {% elif field.name == 'key_ingredients'%}
-      Tu kluczowe składniki
+      <button class='dropbtn' data-assignedto='dropdown_keyingredients'>
+        Key Ingredients
+      </button>
+      <div class='dropdown' id='dropdown_keyingredients'>
+        <input class='checkbox_filter' type='text' placeholder='Filter..'>
+        {{field}}
+      </div>
+      {% elif field.name == 'pasta' %}
+      <button class='dropbtn' data-assignedTo = 'dropdown_pasta'>
+        Pasta
+      </button>
+      <div class='dropdown' id='dropdown_pasta'>
+        <input class='checkbox_filter' type='text' placeholder='Filter..'>
+        {{field}}
+      </div>
       {% else %}
-      {{field}}
+        {{field}}
       {% endif %}
 
     </div>

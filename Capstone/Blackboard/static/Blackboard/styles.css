@@ -258,6 +258,7 @@ input:focus {
 .popup{
   width:50vw;
   position:fixed;
+  height: 80vh;
   right:0;
   left:0;
   top:5%;
@@ -282,4 +283,24 @@ input:focus {
 .label {
   margin:0;
   color:black
+}
+.dropdown.show{
+  display:block
+}
+.dropdown {
+  display:none;
+  position:absolute;
+  border:1px solid black;
+  height: 40%;
+  overflow-y: scroll;
+  background-color: var(--yellow);
+}
+.dropdown input {
+  width:fit-content;
+}
+.dropdown label {
+  margin-left: 0.5em
+}
+input[type='checkbox'] {
+  accent-color: var(--dark_yellow);
 }

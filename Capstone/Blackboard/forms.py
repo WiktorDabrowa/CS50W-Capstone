@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django import forms
 
 # This form will handle all of models:
-# -Ingredient
+# - Ingredient
 # - Key Ingredient
 # - Pasta
 # because of their identical structure
@@ -17,12 +17,28 @@ class IngredientForm(forms.Form):
   type = forms.ChoiceField(choices = type_choices)
   name = forms.CharField(max_length=50)
 
+# Recipe form with changed widgets for 
+# field related to another models
 class RecipeForm(ModelForm):
+  pasta = forms.ModelChoiceField(
+    queryset = Pasta.objects.all(),
+    widget = forms.RadioSelect
+  )
+  
+  key_ingredients = forms.ModelMultipleChoiceField(
+        queryset = KeyIngredient.objects.all(),
+        widget = forms.CheckboxSelectMultiple
+  ) 
+  ingredients = forms.ModelMultipleChoiceField(
+        queryset = Ingredient.objects.all(),
+        widget = forms.CheckboxSelectMultiple
+    )
   class Meta:
     model = Recipe
     fields = '__all__'
     
     field_order = ['name','season','type','key_ingredients','ingredients','pasta','price']
+    
     
 class BlackboardForm(ModelForm):
   class Meta:
