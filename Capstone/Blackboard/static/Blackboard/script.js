@@ -14,12 +14,15 @@ document.addEventListener('DOMContentLoaded', async () =>{
   const input_filters = document.querySelectorAll('.filter.input')
   input_filters.forEach( filter =>{
     filter.addEventListener('keyup', input_filter)
-    console.log('Added event listener')
   })
   const select_filters = document.querySelectorAll('.filter.select')
   select_filters.forEach( filter => {
     filter.addEventListener('change', select_filter)
-    console.log('Added event listener')
+  })
+  const dropdowns = document.querySelectorAll('.dropdown')
+  dropdowns.forEach(menu => {
+    menu.addEventListener('click', present_checkbox_input)
+    console.log('added event listener')
   })
   // Get data from async call and add HTML elements
     // Get recipes
@@ -328,7 +331,8 @@ function present_data(data) {
 
 // toggle dropdown menu display
 function dropdown_toggle() {
-  document.getElementById(`${this.dataset.assignedto}`).classList.toggle('show')
+  document.getElementById(`${this.dataset.assignedto}`).classList.toggle('show');
+  this.parentElement.querySelector('button').classList.toggle('active')
 }
 
 // Filtering through dropdown menu
@@ -344,4 +348,37 @@ function dropdown_filter() {
       item.style.display = 'none'
     }
   })
+}
+
+function present_checkbox_input() {
+  // Everytime dropdown menu gets clicked,
+  // Iterate through inputs with type checkbox
+  // and display them in input field for presentation
+  const checkboxes = this.querySelectorAll('input[type="checkbox"]')
+  const labels = this.querySelectorAll('label')
+  const parent = this.parentElement
+  const input = parent.querySelector('input')
+  let str = ''
+  if (checkboxes.length === 0) {
+    console.log('tutaj radiobuttons')
+    const radio = this.querySelectorAll('input[type="radio"]')
+    console.log(radio)
+    for (let i = 0; i < radio.length; i++) {
+      if (radio[i].checked) {
+        let item = labels[i].textContent
+        console.log(item)
+        input.value = item
+      }
+    }
+  } else {
+  for (let i = 0; i < checkboxes.length; i++) {
+    if (checkboxes[i].checked ){
+      let item = labels[i].textContent
+      str += `${item},`
+      console.log(item)
+    }
+  }
+  console.log(str)
+  input.value = str
+}
 }
