@@ -87,7 +87,11 @@ def add_item(request, model):
         elif item['type'] == 'Pasta':
           Pasta.objects.create(name=item['name'])
     elif model == 'recipe':
-      pass
+      form = RecipeForm(request.POST)
+      if form.is_valid():
+        form.save()
+      else:
+        HttpResponse('Please fill out the form correctly!')
     elif model == 'blackboard':
       pass
     return HttpResponseRedirect(reverse("staff"))

@@ -22,16 +22,19 @@ class IngredientForm(forms.Form):
 class RecipeForm(ModelForm):
   pasta = forms.ModelChoiceField(
     queryset = Pasta.objects.all(),
-    widget = forms.RadioSelect
+    widget = forms.RadioSelect,
+    blank = True
   )
   
   key_ingredients = forms.ModelMultipleChoiceField(
         queryset = KeyIngredient.objects.all(),
-        widget = forms.CheckboxSelectMultiple
+        widget = forms.CheckboxSelectMultiple,
+        blank = False
   ) 
   ingredients = forms.ModelMultipleChoiceField(
         queryset = Ingredient.objects.all(),
-        widget = forms.CheckboxSelectMultiple
+        widget = forms.CheckboxSelectMultiple,
+        blank = False
     )
   class Meta:
     model = Recipe

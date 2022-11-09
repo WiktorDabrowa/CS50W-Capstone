@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
   const tabs = document.querySelectorAll('.staff_tab')
   const dropdown_buttons = document.querySelectorAll('.dropbtn')
   dropdown_buttons.forEach(btn => {
-    btn.addEventListener('click', dropdown_toggle)
+    btn.addEventListener('click', toggle_display)
   })
   const dropdown_filters = document.querySelectorAll('.checkbox_filter')
   dropdown_filters.forEach(input =>{
@@ -22,7 +22,10 @@ document.addEventListener('DOMContentLoaded', async () =>{
   const dropdowns = document.querySelectorAll('.dropdown')
   dropdowns.forEach(menu => {
     menu.addEventListener('click', present_checkbox_input)
-    console.log('added event listener')
+  })
+  const popup_buttons = document.querySelectorAll('.popup_button')
+  popup_buttons.forEach(button => {
+    button.addEventListener('click', toggle_display)
   })
   // Get data from async call and add HTML elements
     // Get recipes
@@ -330,7 +333,7 @@ function present_data(data) {
 }
 
 // toggle dropdown menu display
-function dropdown_toggle() {
+function toggle_display() {
   document.getElementById(`${this.dataset.assignedto}`).classList.toggle('show');
   this.parentElement.querySelector('button').classList.toggle('active')
 }

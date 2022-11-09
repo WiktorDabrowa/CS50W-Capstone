@@ -95,7 +95,9 @@ div .login {
   border-radius: 1.5em 1.5em 0 0;
   position:relative;
 }
-
+.nav_link{
+  z-index:5
+}
 .staff_tab > .nav-link{
   padding-top: 1em;
   z-index:3;
@@ -159,7 +161,7 @@ div .login {
   flex-direction: column;
 }
 .initial {
-  display:block
+  display:flex
 }
 .recipe_filter {
   height: 100px;
@@ -256,9 +258,10 @@ input:focus {
 }
 
 .popup{
-  width:50vw;
+  width:30vw;
+  display:none;
   position:fixed;
-  height: 80vh;
+  height: fit-content;
   right:0;
   left:0;
   top:5%;
@@ -270,7 +273,9 @@ input:focus {
   z-index: 2;
   padding:1em;
 }
-
+.popup.show{
+  display:block
+}
 .popup .form_field {
   margin-top:1em
 }
@@ -278,6 +283,7 @@ input:focus {
   width:fit-content;
   background-color: white;
   border:1px solid black;
+  padding:0;
 
 }
 .label {
@@ -288,7 +294,7 @@ input:focus {
   background-color: transparent;
   position:absolute;
   padding:0;
-  right:-1em;
+  right:0;
   border:none;
   font-size: smaller;
   display:flex;
@@ -306,19 +312,23 @@ input:focus {
   color: #f7b414;
 }
 .dropdown.show{
-  display:block
+  display:block;
+  height:40%;
 }
 .dropdown {
+  height: 0;
   display:none;
   position:absolute;
   border:1px solid black;
-  height: 40%;
   overflow-y: scroll;
   background-color: var(--yellow);
-  z-index:1
+  z-index:1;
+
 }
 .dropdown input {
   width:fit-content;
+  border:none;
+  padding-left: 1em;
 }
 .dropdown label {
   margin-left: 0.5em
@@ -329,8 +339,8 @@ input[type='checkbox'] {
 
 .dropdown_container {
   position:relative;
-  width:40%;
-  margin-top:1em;
+  width:fit-content;
+  margin-top:1px;
   display:flex;
   align-items: center
 }
@@ -339,4 +349,57 @@ input[type='checkbox'] {
 }
 .dropicon{
   opacity:0.75
+}
+.open_btn {
+  overflow: hidden;
+  white-space: nowrap;
+  transition: width 0.5s;
+}
+
+.open_btn:hover{
+  width:11em;
+  outline:0.5px solid black;
+}
+.center{
+  display:flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon{
+  height:2em;
+  padding: 0 8px 0 8px
+}
+.popup_button{
+  display:flex;
+  border:none;
+  height: 2em;
+  width:2em;
+  background-color: var(--yellow);
+  opacity:0.5;
+  border-radius: 1em;
+  padding-left:0;
+  transition-duration:0.5s
+}
+.popup_button:hover {
+  opacity:1
+}
+.popup_button:focus {
+  border:none;
+  outline:none
+}
+.close_btn {
+  position:absolute;
+  right:0
+}
+.popup input[type='submit']{
+  opacity:0.75;
+  background-color: transparent;
+  position:absolute;
+  right:0.5em;
+  bottom:0.5em;
+  border:none;
+  transition:0.5s
+}
+.popup input[type='submit']:hover {
+  opacity:1;
 }

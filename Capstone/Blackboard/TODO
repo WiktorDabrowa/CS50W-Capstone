@@ -1,4 +1,9 @@
 Fix index layout!
-dropdown form field should 
-  display somewhere in the popup
-  selected values
+popup recipe form ->
+  enforce key ingredients and ingredients
+  to be filled out before submission
+
+staff/ingredients adding ingredient 
+  styling fix
+
+fix add recipe button
