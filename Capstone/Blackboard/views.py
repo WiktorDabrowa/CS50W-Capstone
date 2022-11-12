@@ -78,6 +78,7 @@ def add_item(request, model):
     if model == 'ingredient':
       print(request.POST)
       form = IngredientForm(request.POST)
+      print(form)
       if form.is_valid():
         item = form.cleaned_data
         if item['type'] == 'Ingredient':
@@ -86,14 +87,23 @@ def add_item(request, model):
           KeyIngredient.objects.create(name=item['name'])
         elif item['type'] == 'Pasta':
           Pasta.objects.create(name=item['name'])
+          
     elif model == 'recipe':
+      print(request.POST)
       form = RecipeForm(request.POST)
       if form.is_valid():
         form.save()
+        print('zapisano')
       else:
-        HttpResponse('Please fill out the form correctly!')
+        print(form.errors)
+        return HttpResponse('Please fill out the form correctly!')
+    
     elif model == 'blackboard':
-      pass
+      form = BlackboardForm(request.POST)
+      if form.is_valid():
+        form.save()
+      else:
+        return HttpResponse('Please fill out the form correctly!')
     return HttpResponseRedirect(reverse("staff"))
 
 # API Views

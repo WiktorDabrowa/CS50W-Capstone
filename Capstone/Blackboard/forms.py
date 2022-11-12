@@ -23,7 +23,8 @@ class RecipeForm(ModelForm):
   pasta = forms.ModelChoiceField(
     queryset = Pasta.objects.all(),
     widget = forms.RadioSelect,
-    blank = True
+    blank = True,
+    required = False
   )
   
   key_ingredients = forms.ModelMultipleChoiceField(
@@ -44,8 +45,13 @@ class RecipeForm(ModelForm):
     
     
 class BlackboardForm(ModelForm):
+  recipes = forms.ModelMultipleChoiceField(
+    queryset = Recipe.objects.all(),
+    widget = forms.CheckboxSelectMultiple,
+    label = ''
+  )
   class Meta:
     model = Blackboard
-    fields = '__all__'
+    fields = ['recipes']
     
     

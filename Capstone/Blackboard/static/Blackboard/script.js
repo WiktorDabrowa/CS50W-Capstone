@@ -334,7 +334,8 @@ function present_data(data) {
 
 // toggle dropdown menu display
 function toggle_display() {
-  document.getElementById(`${this.dataset.assignedto}`).classList.toggle('show');
+  const popup = document.getElementById(`${this.dataset.assignedto}`)
+  popup.classList.toggle('show');
   this.parentElement.querySelector('button').classList.toggle('active')
 }
 
@@ -357,19 +358,20 @@ function present_checkbox_input() {
   // Everytime dropdown menu gets clicked,
   // Iterate through inputs with type checkbox
   // and display them in input field for presentation
+  // if they are checked
   const checkboxes = this.querySelectorAll('input[type="checkbox"]')
   const labels = this.querySelectorAll('label')
   const parent = this.parentElement
+  const popup = parent.parentElement.parentElement
   const input = parent.querySelector('input')
   let str = ''
+  console.log(this)
+  // if checkboxes.length = 0 widget is radiobuttons
   if (checkboxes.length === 0) {
-    console.log('tutaj radiobuttons')
     const radio = this.querySelectorAll('input[type="radio"]')
-    console.log(radio)
     for (let i = 0; i < radio.length; i++) {
       if (radio[i].checked) {
         let item = labels[i].textContent
-        console.log(item)
         input.value = item
       }
     }
@@ -378,10 +380,19 @@ function present_checkbox_input() {
     if (checkboxes[i].checked ){
       let item = labels[i].textContent
       str += `${item},`
-      console.log(item)
     }
   }
-  console.log(str)
   input.value = str
 }
+  if ( this.id === 'dropdown_recipes') {
+    const staging_container = popup.querySelector('#blackboard_add_staging')
+    staging_container.innerHTML = ''
+    let recipes = str.split(',\n')
+    recipes[0] = recipes[0].slice(1)
+    for (i = 0 ; i < recipes.length; i++) {
+      const div = document.createElement('div')
+      div.innerHTML = recipes[i]
+      staging_container.append(div)
+    }
+  }
 }
