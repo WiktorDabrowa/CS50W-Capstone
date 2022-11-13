@@ -1,16 +1,25 @@
 {% extends 'Blackboard/layout.html' %}
 {% block body %}
 <div class='main blackboard'>
+
+  <h1 class='index_slidein'>{{ date|date:"j F (l)" }}</h1>
+
   {% for recipe in blackboard %}
-  <h2>{{recipe}} | {{recipe.price}} | {{recipe.type}}</h2>
-  <h4>
-  {% for ingredient in recipe.key_ingredients.all %}
-    {{ingredient}} /
-  {% endfor%}
-  {%for ingredient in recipe.ingredients.all %}
-    {{ingredient}}/
-  {% endfor %}
-  </h4>
+    <div class="{% cycle 'blue' 'pink' 'orange' 'green' 'white' %} index_slidein">
+      <h2>{{recipe}} | {{recipe.price}} | {{recipe.type}}</h2>
+      <h4>
+        {% for ingredient in recipe.key_ingredients.all %}
+          {{ingredient}} /
+        {% endfor%}
+        {%for ingredient in recipe.ingredients.all %}
+          {% if forloop.last %}
+            {{ingredient}}
+          {% else %}
+            {{ingredient}}/
+          {% endif %}
+        {% endfor %}
+      </h4>
+    </div>
   {% endfor %}
 </div>
 

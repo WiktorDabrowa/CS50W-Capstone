@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', async () =>{
+  // Index animation delay
+  const index_recipes = document.querySelectorAll('.index_slidein')
+  for (i = 0; i < index_recipes.length; i++) {
+    let item = index_recipes[i]
+    item.style.animationDelay = i*0.2+'s'
+  }
+  
+  // Add Event listeners
   const tabs = document.querySelectorAll('.staff_tab')
   const dropdown_buttons = document.querySelectorAll('.dropbtn')
   dropdown_buttons.forEach(btn => {
@@ -27,16 +35,17 @@ document.addEventListener('DOMContentLoaded', async () =>{
   popup_buttons.forEach(button => {
     button.addEventListener('click', toggle_display)
   })
+
   // Get data from async call and add HTML elements
     // Get recipes
       const recipes = await get_db_item('recipes')
       present_data(recipes)
       console.log(typeof recipes)
     // Get blackboards
-      let blackboards = await get_db_item('blackboards')
+      const blackboards = await get_db_item('blackboards')
       present_data(blackboards)
     // Get ingredients
-      let ingredients = await get_db_item('ingredients')
+      const ingredients = await get_db_item('ingredients')
       present_data(ingredients)
       console.log(ingredients)
 })
@@ -386,7 +395,7 @@ function present_checkbox_input() {
 }
   if ( this.id === 'dropdown_recipes') {
     const staging_container = popup.querySelector('#blackboard_add_staging')
-    staging_container.innerHTML = ''
+    staging_container.innerHTML = 's'
     let recipes = str.split(',\n')
     recipes[0] = recipes[0].slice(1)
     for (i = 0 ; i < recipes.length; i++) {

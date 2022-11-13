@@ -12,12 +12,13 @@ from .forms import *
 # Create your views here.
 
 def index(request):
-  blackboards = Blackboard.objects.all()
-  blackboard = list(blackboards[0].recipes.all())
+  blackboards = Blackboard.objects.all().order_by('-date')
+  blackboard_query = blackboards[0]
+  recipes = list(blackboards[0].recipes.all())
   starters = []
   mains = []
   desserts = []
-  for recipe in blackboard:
+  for recipe in recipes:
     if recipe.type == 'Starter':
       starters.append(recipe)
     elif recipe.type == 'Main':
@@ -26,7 +27,8 @@ def index(request):
       desserts.append(recipe)
   blackboard = [*starters, *mains, *desserts]
   context = {
-   'blackboard': blackboard
+   'blackboard': blackboard,
+   'date' : blackboard_query.date
   }
   return render(request, 'Blackboard/index.html', context)
 
@@ -78,7 +80,6 @@ def add_item(request, model):
     if model == 'ingredient':
       print(request.POST)
       form = IngredientForm(request.POST)
-      print(form)
       if form.is_valid():
         item = form.cleaned_data
         if item['type'] == 'Ingredient':
@@ -96,7 +97,7 @@ def add_item(request, model):
         print('zapisano')
       else:
         print(form.errors)
-        return HttpResponse('Please fill out the form correctly!')
+      return HttpResponseRedirect(reverse('staff'))
     
     elif model == 'blackboard':
       form = BlackboardForm(request.POST)

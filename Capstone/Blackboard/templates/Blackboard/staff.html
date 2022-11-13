@@ -38,7 +38,7 @@
     </div>
   </button>
 
-  <form id='blackboard_form' method='Post' action='/add_item/blackboard'>
+  <form autocomplete='off' id='blackboard_form' method='Post' action='/add_item/blackboard'>
     {% csrf_token %}
     <div class='form_field'>
       <h5 class='label'>
@@ -68,7 +68,9 @@
 </div>
 
 <div class='popup' id='recipe_add'>
-
+  {% if form.error %}
+  {{form.error}}
+  {% endif %}
   <button class='popup_button close_btn' data-assignedTo='recipe_add'>
     <div class='icon center'>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
@@ -78,7 +80,7 @@
     </div>
   </button>
 
-  <form id='recipe_form' method='Post' action='/add_item/recipe'>
+  <form autocomplete='off' id='recipe_form' method='Post' action='/add_item/recipe'>
     {% csrf_token %}
     {% for field in recipe_form %}
     <div class='form_field'>

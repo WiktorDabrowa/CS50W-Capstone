@@ -1,4 +1,7 @@
-
+@keyframes slidein {
+  from {transform:translateX(-100%)}
+  to {transform:translateX(0)}
+}
 :root{
   --gray: #31343a;
   --yellow: #f7b414;
@@ -6,6 +9,24 @@
 }
 html, body {
   margin:0
+}
+.pink {
+  color: rgba(255, 192, 203, 0.729);
+}
+.orange {
+  color: #f2dc99;
+}
+.green {
+  color: #daf299;
+}
+.white {
+  color: whitesmoke;
+}
+.blue {
+  color: #73bffa;
+}
+.index_slidein {
+  animation:slidein 1s cubic-bezier(0, 0, 0.2, 0.9) forwards
 }
 #nav_div{
   background-color: var(--yellow);
@@ -44,6 +65,9 @@ html, body {
 #menu_button:focus{
   outline:none;
   border:none
+}
+.blackboard.main {
+  padding:3em
 }
 .nav-link {
   display:block;
