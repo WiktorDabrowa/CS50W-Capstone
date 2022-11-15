@@ -1,7 +1,12 @@
 {% extends 'Blackboard/layout.html' %}
 {% block body %}
 <div class='main blackboard'>
-
+  <div class='popup show landing' style='width:300px; height:300px; margin-top:150px;padding:0'>
+    <img class="logo-main scale-with-grid" src="https://ragu.pl/wp-content/uploads/2019/03/logo_4.png" data-retina="https://ragu.pl/wp-content/uploads/2019/03/logo_4.png" data-height="" alt="" data-no-retina="" style="max-height: 300px;">
+    {% comment %} <h1 style='color:black;font-weight:heavier'>Restaurant</h1>
+    <br>
+    <h2> Blackboard </h2> {% endcomment %}
+  </div>
   <h1 class='index_slidein'>{{ date|date:"j F (l)" }}</h1>
 
   {% for recipe in blackboard %}

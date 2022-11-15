@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', async () =>{
   // Index animation delay
+
   const index_recipes = document.querySelectorAll('.index_slidein')
   for (i = 0; i < index_recipes.length; i++) {
     let item = index_recipes[i]
-    item.style.animationDelay = i*0.2+'s'
+    item.style.animationDelay = 1 + i*0.2+'s'
+    console.log(item.style.opacity)
   }
   
   // Add Event listeners
@@ -205,23 +207,12 @@ async function get_db_item(item){
   let json = JSON.parse(data)
   return json
 }
-
-// Navigation menu 
-function nav_toggle(obj){
-  let type = obj.dataset.type
+// Navigation menu toggle
+function nav_toggle_new() {
   const nav = document.getElementById('nav_div')
-  const button = document.getElementById('menu_button')
   const main = document.getElementById('main_page')
-  if (type === 'open'){
-    nav.style.width = '15em';
-    main.style.marginLeft= '15em'
-    button.dataset.type = 'close'
-  } else if (type === 'close') {
-    nav.style.width = '0';
-    main.style.marginLeft = '0'
-    main.style.flex = '1'
-    button.dataset.type = 'open'
-  }
+  nav.classList.toggle('open')
+  main.classList.toggle('main_open')
 }
 
 // Display selected tab
