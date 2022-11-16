@@ -386,7 +386,7 @@ function present_checkbox_input() {
 }
   if ( this.id === 'dropdown_recipes') {
     const staging_container = popup.querySelector('#blackboard_add_staging')
-    staging_container.innerHTML = 's'
+    staging_container.innerHTML = ''
     let recipes = str.split(',\n')
     recipes[0] = recipes[0].slice(1)
     for (i = 0 ; i < recipes.length; i++) {

@@ -76,14 +76,13 @@ html, body {
 }
 #main_page{
   position:relative;
-  padding:0 16px 0 16px;
+  padding:0 16px 16px 16px;
   background-color: var(--gray);
   color:white;
   transition:margin-left .5s;
   min-height: 100vh;
   margin-left:0;
   width:100vw;
-  height:100vh
 }
 #menu_button {
   position:absolute;
@@ -312,7 +311,7 @@ input:focus {
   padding: 0
 }
 .popup.show{
-  max-height: 1000px;
+  max-height: 2000px;
   box-shadow: 0 0 0 max(100vh, 100vw) rgba(0, 0, 0, .3);
   opacity:1;
   padding:1em;
@@ -326,6 +325,7 @@ input:focus {
   background-color: white;
   border:1px solid black;
   padding:0;
+  padding-left: 0.3em;
 }
 .label {
   margin:0;
@@ -374,9 +374,10 @@ input:focus {
 .dropdown label {
   margin-left: 0.5em
 }
-input[type='checkbox'] {
+input[type='checkbox'], input[type='radio'] {
   accent-color: var(--dark_yellow);
 }
+
 
 .dropdown_container {
   position:relative;
@@ -532,5 +533,59 @@ input[type='checkbox'] {
   border: 1px solid black;
   border-top: none
  }
+ .open_btn{
+  width:fit-content;
+  outline:1px solid black;
+  padding:0 1em 0 0
+ }
+ .staff_tab::after{
+  display:none;
+ }
+ .staff_tab:before{
+  display:none
+ }
+ .staff_menu{
+  gap:3em
+ }
+ .staff_tab{
+  font-size:30px;
+  width:fit-content;
+  height:inherit;
+ }
+ .staff_nav{
+  padding-left:13em;
+ }
+ .staff_tab > .nav-link{
+  padding:0
+ }
+ .staff_menu > .staff_tab {
+  padding:0 1em 0 1em;
+  border-radius:0
+ }
+ .popup_button{
+  font-size:30px;
+  color:white;
+  opacity:1;
+  border:1px solid white
+ }
+ .popup_button:focus{
+  outline:none
+ }
+ .mobile_popup_icon{
+  width:32px;
+  height:32px
+ }
+ .popup{
+  font-size: 32px;
+  width:70vw
+ }
+ input[type='checkbox'], input[type='radio'] {
 
+}
+ .label{
+  font-size:48px
+ }
+ select option{
+  font-size:10px
+ }
 }
