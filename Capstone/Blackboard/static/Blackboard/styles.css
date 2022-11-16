@@ -444,6 +444,12 @@ input[type='checkbox'] {
 .popup input[type='submit']:hover {
   opacity:1;
 }
+.error {
+  color:red;
+  border:1px solid red;
+  width:fit-content;
+  padding:0.5em
+}
 
 
 @media screen and (max-device-width: 700px) {

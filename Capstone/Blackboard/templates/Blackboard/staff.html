@@ -1,7 +1,7 @@
 {% extends 'Blackboard/layout.html' %}
 
 {% block body %}
-<div class='popup' id='ingredient_add'>
+<div class='popup {{ ingredient_show }}' id='ingredient_add'>
 
   <button class='popup_button close_btn' data-assignedTo='ingredient_add'>
     <div class='icon center'>
@@ -12,7 +12,7 @@
     </div>
   </button>
 
-  <form autocomplete='off'id='ingredient_form' method='Post' action='/add_item/ingredient'>
+  <form autocomplete='off'id='ingredient_form' method='Post' action='/staff/ingredient'>
     {% csrf_token %}
     {% for field in ingredient_form %}
     <div class='form_field'>
@@ -27,7 +27,7 @@
 
 </div>
 
-<div class='popup' id='blackboard_add'>
+<div class='popup {{blackboard_show}}' id='blackboard_add'>
 
   <button class='popup_button close_btn' data-assignedTo='blackboard_add'>
     <div class='icon center'>
@@ -38,7 +38,7 @@
     </div>
   </button>
 
-  <form autocomplete='off' id='blackboard_form' method='Post' action='/add_item/blackboard'>
+  <form autocomplete='off' id='blackboard_form' method='Post' action='/staff/blackboard'>
     {% csrf_token %}
     <div class='form_field'>
       <h5 class='label'>
@@ -67,10 +67,8 @@
 
 </div>
 
-<div class='popup' id='recipe_add'>
-  {% if form.error %}
-  {{form.error}}
-  {% endif %}
+<div class='popup {{ recipe_show }}' id='recipe_add'>
+  
   <button class='popup_button close_btn' data-assignedTo='recipe_add'>
     <div class='icon center'>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
@@ -80,8 +78,11 @@
     </div>
   </button>
 
-  <form autocomplete='off' id='recipe_form' method='Post' action='/add_item/recipe'>
+  <form autocomplete='off' id='recipe_form' method='Post' action='/staff/recipe'>
     {% csrf_token %}
+    {% if recipe_form.errors %}
+      <p class='error'>Please fill out the form correctly!</p>
+    {% endif %}
     {% for field in recipe_form %}
     <div class='form_field'>
       <h5 class='label'>
@@ -151,6 +152,12 @@
         </div>
     </div>
   </nav>
+
+  {% if recipe_form.errors %}
+  {% for error in form.errors %}
+  <script>alert('Error')</script>
+  {% endfor %}
+  {% endif %}
 
   <div class='browse' id='ingredients_tab_div'>
     <button type='button' class='popup_button open_btn' data-assignedTo='ingredient_add'>

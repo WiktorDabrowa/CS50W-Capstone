@@ -55,7 +55,7 @@ def logout_view(request):
   return HttpResponseRedirect(reverse("index"))
 
 @login_required(login_url = '/login')
-def staff(request):
+def staff(request, model = None):
   ingredients = Ingredient.objects.all()
   key_ingredients = KeyIngredient.objects.all()
   pastas = Pasta.objects.all()
@@ -72,10 +72,9 @@ def staff(request):
     'recipe_form':recipe_form,
     'blackboard_form':blackboard_form
   }
-  return render(request, 'Blackboard/staff.html',context)
-
-def add_item(request, model):
+  # Adding items to DB
   if request.method == 'POST':
+    
     # Processing Pasta/Ingredient/KeyIngredient
     if model == 'ingredient':
       print(request.POST)
@@ -88,24 +87,35 @@ def add_item(request, model):
           KeyIngredient.objects.create(name=item['name'])
         elif item['type'] == 'Pasta':
           Pasta.objects.create(name=item['name'])
-          
+      # Passing new form to context to display errors
+      else:
+        context['ingredient_form'] = form
+        context['ingredient_show'] = 'show'
+    
+    # Processing Recipe      
     elif model == 'recipe':
       print(request.POST)
       form = RecipeForm(request.POST)
       if form.is_valid():
         form.save()
-        print('zapisano')
+      # Passing new form to context to display errors
+      # and new key value pair to have popup displayed
+      # at reload
       else:
-        print(form.errors)
-      return HttpResponseRedirect(reverse('staff'))
+        context['recipe_form'] = form
+        context['recipe_show'] = 'show'
     
+    # Processing Blackboard
     elif model == 'blackboard':
       form = BlackboardForm(request.POST)
       if form.is_valid():
         form.save()
+      # Passing new form to context to display errors
       else:
-        return HttpResponse('Please fill out the form correctly!')
-    return HttpResponseRedirect(reverse("staff"))
+        context['blackboard_form'] = form
+        context['blackboard_show'] = 'show'
+
+  return render(request, 'Blackboard/staff.html',context)
 
 # API Views
 def get_items(request, db_item):
