@@ -82,7 +82,6 @@ html, body {
   transition:margin-left .5s;
   min-height: 100vh;
   margin-left:0;
-  width:100vw;
 }
 #menu_button {
   position:absolute;
@@ -225,7 +224,8 @@ html, body {
   align-items: center;
   margin-top: 1em;
   height: 2em;
-  border-radius:1em
+  border-radius:1em;
+  position:relative
 }
 
 .column {
@@ -327,6 +327,23 @@ input:focus {
   padding:0;
   padding-left: 0.3em;
 }
+.relative{
+  position:relative
+}
+.delete_btn{
+  position:absolute;
+  right:-32px;
+  top:0;
+  height:100%;
+  border:none;
+  border-left: 1px solid black;
+}
+.delete_btn:focus{
+  border:none;
+  outline:none;
+  border-left:1px solid black;
+  filter:brightness(0.7)
+}
 .label {
   margin:0;
   color:black;
@@ -357,14 +374,16 @@ input:focus {
   display:block;
   height: 15em;
   overflow: overlay;
+  border: 1px solid black
 }
 .dropdown {
-  display:none;
+  height:0;
   position:absolute;
-  border:1px solid black;
   overflow-y: scroll;
   background-color: var(--yellow);
   z-index:1;
+  transition-duration: 0.5s;
+  margin:0
   }
 .dropdown input {
   width:fit-content;
@@ -522,7 +541,8 @@ input[type='checkbox'], input[type='radio'] {
   flex-direction:column;
   width:100%;
   height:fit-content;
-  font-size:30px
+  font-size:30px;
+  position:relative;
  }
  .first {
   border: 1px solid black
@@ -566,7 +586,6 @@ input[type='checkbox'], input[type='radio'] {
   font-size:30px;
   color:white;
   opacity:1;
-  border:1px solid white
  }
  .popup_button:focus{
   outline:none

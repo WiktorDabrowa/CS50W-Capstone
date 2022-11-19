@@ -7,6 +7,7 @@ urlpatterns = [
   path('logout', views.logout_view, name='logout'),
   path('staff', views.staff, name='staff'),
   path('staff/<str:model>', views.staff, name='staff'),
+  path('staff/<str:model>/<int:pk>', views.staff, name='staff'),
   
   #path('add_item/<str:model>',views.add_item, name='add_item'),
   

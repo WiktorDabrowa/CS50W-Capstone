@@ -7,10 +7,27 @@ document.addEventListener('DOMContentLoaded', async () =>{
     item.style.animationDelay = 1 + i*0.2+'s'
     console.log(item.style.opacity)
   }
-  
+
+  // Get data from async call and add HTML elements
+    // Get recipes
+    const recipes = await get_db_item('recipes')
+    present_data(recipes)
+  // Get blackboards
+    const blackboards = await get_db_item('blackboards')
+    present_data(blackboards)
+  // Get ingredients
+    const ingredients = await get_db_item('ingredients')
+    present_data(ingredients)
+    console.log(ingredients)
+
   // Add Event listeners
   const tabs = document.querySelectorAll('.staff_tab')
+  const dropdown_action_buttons = document.querySelectorAll('.action_dropbtn')
+  dropdown_action_buttons.forEach(btn => {
+    btn.addEventListener('click', toggle_display)
+  })
   const dropdown_buttons = document.querySelectorAll('.dropbtn')
+  console.log(dropdown_buttons)
   dropdown_buttons.forEach(btn => {
     btn.addEventListener('click', toggle_display)
   })
@@ -19,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
     input.addEventListener('keyup', dropdown_filter)
   })
   tabs.forEach(tab => {
+    console.log(tab)
     tab.addEventListener('click', () => Select(tab.id))
   })
   const input_filters = document.querySelectorAll('.filter.input')
@@ -37,19 +55,12 @@ document.addEventListener('DOMContentLoaded', async () =>{
   popup_buttons.forEach(button => {
     button.addEventListener('click', toggle_display)
   })
+  const actions = document.querySelectorAll('.delete_btn')
+  actions.forEach(btn => {
+    btn.addEventListener('click', () => delete_entry(btn.dataset.item))
+    }
+  )
 
-  // Get data from async call and add HTML elements
-    // Get recipes
-      const recipes = await get_db_item('recipes')
-      present_data(recipes)
-      console.log(typeof recipes)
-    // Get blackboards
-      const blackboards = await get_db_item('blackboards')
-      present_data(blackboards)
-    // Get ingredients
-      const ingredients = await get_db_item('ingredients')
-      present_data(ingredients)
-      console.log(ingredients)
 })
 
 // Query Filters
@@ -243,6 +254,7 @@ function present_data(data) {
       const fields = item['fields']
       const wrapper = document.getElementById('recipe_wrapper');
       // Create elements
+      const div_outer = document.createElement('div')
       const div = document.createElement('div')
       const name = document.createElement('div')
       const keyingredient = document.createElement('div')
@@ -251,7 +263,10 @@ function present_data(data) {
       const ing = document.createElement('div')
       const price = document.createElement('div')
       const pasta = document.createElement('div')
+      const del_btn = document.createElement('button')
+      
        // Assign classes for CSS styling
+       div_outer.classList.add('relative')
        div.classList.add('item_container')
        name.classList.add('recipe_name','column', 'first', 'wide')
        keyingredient.classList.add('recipe_keyingredient','column', 'wide')
@@ -260,10 +275,15 @@ function present_data(data) {
        ing.classList.add('recipe_ingredient','column','wide')
        price.classList.add('recipe_price','column','slim')
        pasta.classList.add('recipe_pasta','column','slim')
+       del_btn.classList.add('delete_btn')
+       del_btn.dataset.item = `${item['model']}:${item['pk']}`
+       
        // Populate with data
+       
        name.innerHTML = fields['name']
        keyingredient.innerHTML = fields['key_ingredients']
        type.innerHTML = fields['type']
+       del_btn.innerHTML = 'Del'
        if (fields['season'] === ''){
         season.innerHTML = '-'
        } else {
@@ -277,14 +297,11 @@ function present_data(data) {
        pasta.innerHTML = fields['pasta']
        }
        // Place elements in document
-       wrapper.append(div)
-       div.append(name);
-       div.append(season);
-       div.append(type);
-       div.append(keyingredient);
-       div.append(ing);
-       div.append(pasta);
-       div.append(price);
+       wrapper.append(div_outer)
+       div_outer.append(div)
+       div_outer.append(del_btn)
+       div.append(name, season,type, keyingredient, ing, pasta, price);
+  
   })
   } else if ( tab === 'blackboard') {
     // Code for blackboards
@@ -292,20 +309,27 @@ function present_data(data) {
       const fields = item['fields']
       const wrapper = document.getElementById('blackboards_wrapper');
       // Create elements
+      const div_outer = document.createElement('div')
       const div = document.createElement('div')
       const date = document.createElement('div')
       const recipes = document.createElement('div')
+      const del_btn = document.createElement('button')
       // Assign CSS classes
+      div_outer.classList.add('relative')
       div.classList.add('item_container')
       date.classList.add('blackboard_date','column','first', 'ultra-slim')
       recipes.classList.add('blackboards_date','column','wide')
+      del_btn.classList.add('delete_btn')
+      del_btn.dataset.item = `${item['model']}:${item['pk']}`
       // Populate with data
+      del_btn.innerHTML = 'Del'
       date.innerHTML = fields['date']
       recipes.innerHTML = fields['recipes']
       // Place elements in document
-      wrapper.append(div)
-      div.append(date)
-      div.append(recipes)
+      wrapper.append(div_outer)
+      div_outer.append(div, del_btn)
+      div.append(date,recipes)
+      
     })
   } else {
     // Code for Ingredients/KeyIngredients/Pastas
@@ -313,20 +337,27 @@ function present_data(data) {
       const fields = item['fields']
       const wrapper = document.getElementById('ingredients_wrapper')
       // Create elements 
+      const div_outer = document.createElement('div')
       const div = document.createElement('div')
       const type = document.createElement('div')
       const name = document.createElement('div')
+      const del_btn = document.createElement('button')
       // Assign classes
+      div_outer.classList.add('relative')
       div.classList.add('item_container')
       type.classList.add('ingredients_type', 'column', 'type','ultra-slim', 'first')
       name.classList.add('ingredients_name', 'column', 'name', 'wide')
+      del_btn.classList.add('delete_btn')
+      del_btn.dataset.item = `${item.model.slice(11)}:${item['pk']}`
       //Populate with data
       type.innerHTML = item.model.slice(11).charAt(0).toUpperCase() + item.model.slice(12)
+      console.log(type.innerHTML)
       name.innerHTML = fields['name']
+      del_btn.innerHTML = 'Del'
       // Place elements in document
-      wrapper.append(div)
-      div.append(type)
-      div.append(name)
+      wrapper.append(div_outer)
+      div_outer.append(div, del_btn)
+      div.append(type, name)
     })
   }
   
@@ -395,4 +426,12 @@ function present_checkbox_input() {
       staging_container.append(div)
     }
   }
+}
+
+function delete_entry(entry) {
+  console.log(`deleting ${entry}`)
+  let array = entry.split(':')
+  let model = array[0]
+  let pk = array[1]
+  window.location.href = `staff/${model}/${pk}`
 }

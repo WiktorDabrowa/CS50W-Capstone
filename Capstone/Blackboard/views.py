@@ -55,7 +55,7 @@ def logout_view(request):
   return HttpResponseRedirect(reverse("index"))
 
 @login_required(login_url = '/login')
-def staff(request, model = None):
+def staff(request, model = None, pk = None):
   ingredients = Ingredient.objects.all()
   key_ingredients = KeyIngredient.objects.all()
   pastas = Pasta.objects.all()
@@ -72,12 +72,25 @@ def staff(request, model = None):
     'recipe_form':recipe_form,
     'blackboard_form':blackboard_form
   }
+  # Deleting items
+  if pk != None:
+    if model == 'Blackboard.recipe':
+      Recipe.objects.get(pk = pk).delete()
+    elif model == 'ingredient':
+      Ingredient.objects.get(id = pk).delete()
+    elif model == 'keyingredient':
+      KeyIngredient.objects.get(pk = pk).delete()
+    elif model == 'pasta':
+      Blackboard.objects.get(pk = pk).delete()
+    elif model == 'Blackboard.blackboard':
+      Blackboard.objects.get(pk = pk).delete()
+    return HttpResponseRedirect(reverse("staff"))
+  
   # Adding items to DB
   if request.method == 'POST':
     
     # Processing Pasta/Ingredient/KeyIngredient
     if model == 'ingredient':
-      print(request.POST)
       form = IngredientForm(request.POST)
       if form.is_valid():
         item = form.cleaned_data
@@ -94,7 +107,6 @@ def staff(request, model = None):
     
     # Processing Recipe      
     elif model == 'recipe':
-      print(request.POST)
       form = RecipeForm(request.POST)
       if form.is_valid():
         form.save()
