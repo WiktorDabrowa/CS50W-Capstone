@@ -208,6 +208,7 @@ html, body {
   background-color: #b28211;
   display:none;
   padding: 2em;
+  gap:0;
   flex-direction: column;
 }
 .initial {
@@ -222,10 +223,10 @@ html, body {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 1em;
   height: 2em;
-  border-radius:1em;
-  position:relative
+  margin-top:1em;
+  position:relative;
+  background-color: rgb(167, 167, 167);
 }
 
 .column {
@@ -237,7 +238,7 @@ html, body {
   white-space: nowrap;
   overflow: hidden;
   color:black;
-  background-color: aliceblue;
+  background-color: rgb(233, 233, 233);
   border-left: 1px solid black
 
 }
@@ -246,7 +247,7 @@ html, body {
   height: 2em;
   border:none;
   text-align: center;
-  padding: none;
+  padding: 0;
   background-color: var(--yellow);
 }
 .filters > .column{
@@ -332,11 +333,25 @@ input:focus {
 }
 .delete_btn{
   position:absolute;
-  right:-32px;
-  top:0;
-  height:100%;
+  right:-29px;
+  top:calc(2em*0.2/2);
+  aspect-ratio: 1;
+  height:80%;
   border:none;
-  border-left: 1px solid black;
+  border-radius:50%;
+  background-color: transparent;
+  border:1px solid var(--yellow);
+  color:var(--yellow);
+  transition:0.5s;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.delete_btn:hover{
+  background-color: crimson;
+  color:white;
+  border:1px solid white
+
 }
 .delete_btn:focus{
   border:none;
@@ -551,7 +566,7 @@ input[type='checkbox'], input[type='radio'] {
   height:50px;
   width:100%;
   border: 1px solid black;
-  border-top: none
+  border-top: none;
  }
  .open_btn{
   width:fit-content;

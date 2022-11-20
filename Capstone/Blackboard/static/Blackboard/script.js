@@ -264,7 +264,9 @@ function present_data(data) {
       const price = document.createElement('div')
       const pasta = document.createElement('div')
       const del_btn = document.createElement('button')
-      
+      const del_btn_svg = document.createElement('svg')
+      const del_icon = document.createElementNS("http://www.w3.org/2000/svg", 'path')
+
        // Assign classes for CSS styling
        div_outer.classList.add('relative')
        div.classList.add('item_container')
@@ -283,7 +285,7 @@ function present_data(data) {
        name.innerHTML = fields['name']
        keyingredient.innerHTML = fields['key_ingredients']
        type.innerHTML = fields['type']
-       del_btn.innerHTML = 'Del'
+      del_btn.innerHTML = 'x'
        if (fields['season'] === ''){
         season.innerHTML = '-'
        } else {
@@ -322,7 +324,7 @@ function present_data(data) {
       del_btn.classList.add('delete_btn')
       del_btn.dataset.item = `${item['model']}:${item['pk']}`
       // Populate with data
-      del_btn.innerHTML = 'Del'
+      del_btn.innerHTML = 'x'
       date.innerHTML = fields['date']
       recipes.innerHTML = fields['recipes']
       // Place elements in document
@@ -353,7 +355,7 @@ function present_data(data) {
       type.innerHTML = item.model.slice(11).charAt(0).toUpperCase() + item.model.slice(12)
       console.log(type.innerHTML)
       name.innerHTML = fields['name']
-      del_btn.innerHTML = 'Del'
+      del_btn.innerHTML = 'x'
       // Place elements in document
       wrapper.append(div_outer)
       div_outer.append(div, del_btn)
@@ -433,5 +435,5 @@ function delete_entry(entry) {
   let array = entry.split(':')
   let model = array[0]
   let pk = array[1]
-  window.location.href = `staff/${model}/${pk}`
+  window.location.href = `/staff/${model}/${pk}`
 }
