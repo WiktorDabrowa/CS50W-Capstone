@@ -2,4 +2,6 @@
 
 # VALIDATION!
 
-# Distinvtiveness and Complexity!
+# How to run check
+
+# Garlic accident
