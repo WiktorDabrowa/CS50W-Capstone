@@ -62,7 +62,7 @@ class Recipe(models.Model):
     ('Main', 'Main'),
     ('Dessert', 'Dessert')
   ]
-  name = models.CharField(max_length = 50, unique=True)
+  name = models.CharField(max_length = 50)
   season = models.CharField(max_length = 10,
                             choices = season_choices,
                             blank=True)

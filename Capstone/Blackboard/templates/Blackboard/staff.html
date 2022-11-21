@@ -87,7 +87,7 @@
   <form autocomplete='off' id='recipe_form' method='Post' action='/staff/recipe'>
     {% csrf_token %}
     {% if recipe_form.errors %}
-      <p class='error'>Please fill out the form correctly!</p>
+      <h5 class='error'>Please fill out the form correctly!</h5>
     {% endif %}
     {% for field in recipe_form %}
     <div class='form_field'>

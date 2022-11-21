@@ -19,7 +19,7 @@
   --dark_yellow: #b28211;
 }
 html, body {
-  margin:0
+  margin:0;
 }
 .pink {
   color: rgba(255, 192, 203, 0.729);
@@ -540,10 +540,12 @@ input[type='checkbox'], input[type='radio'] {
  }
  .navbar-nav {
   flex-direction: row;
-  flex:6
+  flex:6;
+  font-size:30px
  }
  .navbar-nav > .nav_div_item {
-  flex:1
+  flex:1;
+  padding:20px;
  }
  .login {
   padding-top: 170px;
@@ -554,7 +556,7 @@ input[type='checkbox'], input[type='radio'] {
  }
  .item_container{
   flex-direction:column;
-  width:100%;
+  width:90%;
   height:fit-content;
   font-size:30px;
   position:relative;
@@ -622,4 +624,27 @@ input[type='checkbox'], input[type='radio'] {
  select option{
   font-size:10px
  }
+ .delete_btn{
+  position:absolute;
+  right:0;
+  top:0;
+  font-size:30px;
+  padding:0;
+  width:60px;
+  border-radius:50%;
+  background-color: transparent;
+  border:2px solid var(--yellow);
+  color:var(--yellow);
+  transition:0.5s;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height:60px
+}
+.delete_btn:focus{
+  border:none;
+  outline:none;
+  border-left:1px solid black;
+  filter:brightness(0.7)
+}
 }
