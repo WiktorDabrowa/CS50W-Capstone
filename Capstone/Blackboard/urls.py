@@ -8,6 +8,7 @@ urlpatterns = [
   path('staff', views.staff, name='staff'),
   path('staff/<str:model>', views.staff, name='staff'),
   path('staff/<str:model>/<int:pk>', views.staff, name='staff'),
+  path('validate/<int:id>', views.validate_blackboard, name = 'validate'),
   
   #path('add_item/<str:model>',views.add_item, name='add_item'),
   

@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () =>{
   // Index animation delay
-
   const index_recipes = document.querySelectorAll('.index_slidein')
   for (i = 0; i < index_recipes.length; i++) {
     let item = index_recipes[i]
     item.style.animationDelay = 1 + i*0.2+'s'
-    console.log(item.style.opacity)
   }
 
   // Get data from async call and add HTML elements
@@ -18,7 +16,6 @@ document.addEventListener('DOMContentLoaded', async () =>{
   // Get ingredients
     const ingredients = await get_db_item('ingredients')
     present_data(ingredients)
-    console.log(ingredients)
 
   // Add Event listeners
   const tabs = document.querySelectorAll('.staff_tab')
@@ -60,6 +57,10 @@ document.addEventListener('DOMContentLoaded', async () =>{
     btn.addEventListener('click', () => delete_entry(btn.dataset.item))
     }
   )
+  const validate_btns = document.querySelectorAll('.validate_btn')
+  validate_btns.forEach(btn => {
+    btn.addEventListener('click', () => validate_blackboard(btn.dataset.item))
+  })
 
 })
 
@@ -226,7 +227,7 @@ function nav_toggle_new() {
   main.classList.toggle('main_open')
 }
 
-// Display selected tab
+// Display selected tab in staff.html
 function Select(tab){
   console.log(`Tab ${tab} Selected`)
   let selected = []
@@ -307,8 +308,11 @@ function present_data(data) {
   })
   } else if ( tab === 'blackboard') {
     // Code for blackboards
+    const user_type = JSON.parse(document.getElementById('user_type').textContent)
+    data.reverse()
     data.forEach(item => {
       const fields = item['fields']
+      console.log(item['fields'])
       const wrapper = document.getElementById('blackboards_wrapper');
       // Create elements
       const div_outer = document.createElement('div')
@@ -316,9 +320,19 @@ function present_data(data) {
       const date = document.createElement('div')
       const recipes = document.createElement('div')
       const del_btn = document.createElement('button')
+      const validate_btn = document.createElement('button')
       // Assign CSS classes
+      validate_btn.classList.add('validate_btn')
+      validate_btn.setAttribute('id', `validate_${item['id']}`)
+      validate_btn.dataset.item = item['pk']
+      validate_btn.type = 'button'
       div_outer.classList.add('relative')
       div.classList.add('item_container')
+      if (fields['is_validated']) {
+        div.classList.add('validated')
+      } else {
+        div.classList.add('not_validated')
+      }
       date.classList.add('blackboard_date','column','first', 'ultra-slim')
       recipes.classList.add('blackboards_date','column','wide')
       del_btn.classList.add('delete_btn')
@@ -327,9 +341,16 @@ function present_data(data) {
       del_btn.innerHTML = 'x'
       date.innerHTML = fields['date']
       recipes.innerHTML = fields['recipes']
+      validate_btn.innerHTML = 'Val'
       // Place elements in document
       wrapper.append(div_outer)
-      div_outer.append(div, del_btn)
+      div_outer.append(div)
+      if (!(fields['is_validated']) && user_type === 'Boss') {
+        div_outer.append(validate_btn)
+      } else if (!(fields['is_validated'])) {
+      } else {
+        div_outer.append(del_btn)
+      }
       div.append(date,recipes)
       
     })
@@ -436,4 +457,9 @@ function delete_entry(entry) {
   let model = array[0]
   let pk = array[1]
   window.location.href = `/staff/${model}/${pk}`
+}
+
+function validate_blackboard(entry) {
+  console.log('validating blackboard nr.' + entry)
+  window.location.href = `/validate/${entry}`
 }

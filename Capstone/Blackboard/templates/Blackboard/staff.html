@@ -1,6 +1,7 @@
 {% extends 'Blackboard/layout.html' %}
 
 {% block body %}
+{{ user.type|json_script:'user_type' }}
 <div class='popup {{ ingredient_show }}' id='ingredient_add'>
 
   <button class='popup_button close_btn' data-assignedTo='ingredient_add'>

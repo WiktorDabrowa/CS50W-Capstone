@@ -81,6 +81,7 @@ class Recipe(models.Model):
 class Blackboard(models.Model):
   date = models.DateField(auto_now_add = True, unique=True)
   recipes = models.ManyToManyField(Recipe)
+  is_validated = models.BooleanField(default = False)
   
   def __str__(self):
     return str(self.date)

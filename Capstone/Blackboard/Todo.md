@@ -1,6 +1,6 @@
 # Styling for staff.html on mobile
 
-# VALIDATION!
+# Error catching (try/except)
 
 # How to run check
 

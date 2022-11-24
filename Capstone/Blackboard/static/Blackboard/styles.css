@@ -228,6 +228,12 @@ html, body {
   position:relative;
   background-color: rgb(167, 167, 167);
 }
+.item_container.validated {
+  opacity:1
+}
+.item_container.not_validated {
+  opacity:0.7
+}
 
 .column {
   height: 2em;
@@ -331,7 +337,7 @@ input:focus {
 .relative{
   position:relative
 }
-.delete_btn{
+.delete_btn, .validate_btn{
   position:absolute;
   right:-29px;
   top:calc(2em*0.2/2);
@@ -347,7 +353,8 @@ input:focus {
   justify-content: center;
   align-items: center;
 }
-.delete_btn:hover{
+
+.delete_btn:hover, .validate_btn:hover{
   background-color: crimson;
   color:white;
   border:1px solid white

@@ -12,7 +12,8 @@ from .forms import *
 # Create your views here.
 
 def index(request):
-  blackboards = Blackboard.objects.all().order_by('-date')
+  blackboards = Blackboard.objects.filter(is_validated = True).order_by('-date')
+  print(blackboards)
   blackboard_query = blackboards[0]
   recipes = list(blackboards[0].recipes.all())
   starters = []
@@ -128,6 +129,17 @@ def staff(request, model = None, pk = None):
         context['blackboard_show'] = 'show'
 
   return render(request, 'Blackboard/staff.html',context)
+
+@login_required(login_url='/login')
+def validate_blackboard(request,id):
+  if request.user.type == 'Boss':
+    blackboard = Blackboard.objects.get(id = id)
+    blackboard.is_validated = True
+    blackboard.save()
+    print(blackboard.is_validated)
+    return HttpResponseRedirect(reverse("staff"))
+  else:
+    return HttpResponse('You cannot validate blackboards!')
 
 # API Views
 def get_items(request, db_item):
