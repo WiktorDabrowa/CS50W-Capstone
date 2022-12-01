@@ -265,9 +265,9 @@ function present_data(data) {
       const price = document.createElement('div')
       const pasta = document.createElement('div')
       const del_btn = document.createElement('button')
-      const del_btn_svg = document.createElement('svg')
-      const del_icon = document.createElementNS("http://www.w3.org/2000/svg", 'path')
-
+      const del_svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      const del_path_1 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+      const del_path_2 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
        // Assign classes for CSS styling
        div_outer.classList.add('relative')
        div.classList.add('item_container')
@@ -280,13 +280,18 @@ function present_data(data) {
        pasta.classList.add('recipe_pasta','column','slim')
        del_btn.classList.add('delete_btn')
        del_btn.dataset.item = `${item['model']}:${item['pk']}`
-       
+       del_svg.setAttribute('width', '16')
+       del_svg.setAttribute('height', '16')
+       del_svg.setAttribute('viewBox', '0 0 16 16')
+       del_svg.setAttribute('fill', 'currentColor')
+       del_path_1.setAttribute('d','M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z' )
+       del_path_2.setAttribute('fill-rule', 'evenodd')
+       del_path_2.setAttribute('d','M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z')
        // Populate with data
        
        name.innerHTML = fields['name']
        keyingredient.innerHTML = fields['key_ingredients']
        type.innerHTML = fields['type']
-      del_btn.innerHTML = 'x'
        if (fields['season'] === ''){
         season.innerHTML = '-'
        } else {
@@ -300,6 +305,8 @@ function present_data(data) {
        pasta.innerHTML = fields['pasta']
        }
        // Place elements in document
+       del_svg.append(del_path_1, del_path_2)
+       del_btn.append(del_svg)
        wrapper.append(div_outer)
        div_outer.append(div)
        div_outer.append(del_btn)
@@ -321,6 +328,11 @@ function present_data(data) {
       const recipes = document.createElement('div')
       const del_btn = document.createElement('button')
       const validate_btn = document.createElement('button')
+      const validate_svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      const validate_path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+      const del_svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      const del_path_1 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+      const del_path_2 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
       // Assign CSS classes
       validate_btn.classList.add('validate_btn')
       validate_btn.setAttribute('id', `validate_${item['id']}`)
@@ -335,14 +347,28 @@ function present_data(data) {
       }
       date.classList.add('blackboard_date','column','first', 'ultra-slim')
       recipes.classList.add('blackboards_date','column','wide')
+      validate_svg.setAttribute('width', '16')
+      validate_svg.setAttribute('height', '16')
+      validate_svg.setAttribute('viewBox', '0 0 16 16')
+      validate_svg.setAttribute('fill', 'currentColor')
+      validate_path.setAttribute('d','M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z')
       del_btn.classList.add('delete_btn')
       del_btn.dataset.item = `${item['model']}:${item['pk']}`
+      del_svg.setAttribute('width', '16')
+      del_svg.setAttribute('height', '16')
+      del_svg.setAttribute('viewBox', '0 0 16 16')
+      del_svg.setAttribute('fill', 'currentColor')
+      del_path_1.setAttribute('d','M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z' )
+      del_path_2.setAttribute('fill-rule', 'evenodd')
+      del_path_2.setAttribute('d','M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z')
       // Populate with data
-      del_btn.innerHTML = 'x'
       date.innerHTML = fields['date']
       recipes.innerHTML = fields['recipes']
-      validate_btn.innerHTML = 'Val'
       // Place elements in document
+      validate_svg.append(validate_path)
+      validate_btn.append(validate_svg)
+      del_svg.append(del_path_1, del_path_2)
+      del_btn.append(del_svg)
       wrapper.append(div_outer)
       div_outer.append(div)
       if (!(fields['is_validated']) && user_type === 'Boss') {
@@ -365,6 +391,9 @@ function present_data(data) {
       const type = document.createElement('div')
       const name = document.createElement('div')
       const del_btn = document.createElement('button')
+      const del_svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+      const del_path_1 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+      const del_path_2 = document.createElementNS('http://www.w3.org/2000/svg', 'path')
       // Assign classes
       div_outer.classList.add('relative')
       div.classList.add('item_container')
@@ -372,12 +401,20 @@ function present_data(data) {
       name.classList.add('ingredients_name', 'column', 'name', 'wide')
       del_btn.classList.add('delete_btn')
       del_btn.dataset.item = `${item.model.slice(11)}:${item['pk']}`
+      del_svg.setAttribute('width', '16')
+      del_svg.setAttribute('height', '16')
+      del_svg.setAttribute('viewBox', '0 0 16 16')
+      del_svg.setAttribute('fill', 'currentColor')
+      del_path_1.setAttribute('d','M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z' )
+      del_path_2.setAttribute('fill-rule', 'evenodd')
+      del_path_2.setAttribute('d','M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z')
       //Populate with data
       type.innerHTML = item.model.slice(11).charAt(0).toUpperCase() + item.model.slice(12)
       console.log(type.innerHTML)
       name.innerHTML = fields['name']
-      del_btn.innerHTML = 'x'
       // Place elements in document
+      del_svg.append(del_path_1, del_path_2)
+      del_btn.append(del_svg)
       wrapper.append(div_outer)
       div_outer.append(div, del_btn)
       div.append(type, name)

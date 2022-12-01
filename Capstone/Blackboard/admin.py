@@ -2,11 +2,8 @@ from django.contrib import admin
 from .models import *
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-# Register your models here.
+# Setting Custom UserAdmin class for registration
 class UserAdmin(BaseUserAdmin):
-  fieldsets = BaseUserAdmin.fieldsets + (
-    (None, {'fields': ('type',)}),
-  )
   add_fieldsets = BaseUserAdmin.add_fieldsets + (
     (None, {'fields': ('type',)}),
   )

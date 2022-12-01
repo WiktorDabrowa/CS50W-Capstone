@@ -26,7 +26,6 @@ class RecipeForm(ModelForm):
     blank = True,
     required = False
   )
-  
   key_ingredients = forms.ModelMultipleChoiceField(
         queryset = KeyIngredient.objects.all(),
         widget = forms.CheckboxSelectMultiple,

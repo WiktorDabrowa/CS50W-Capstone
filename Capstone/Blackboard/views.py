@@ -1,5 +1,4 @@
-from dataclasses import asdict
-from datetime import datetime
+from django.db import IntegrityError
 from django.shortcuts import render, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
@@ -112,7 +111,7 @@ def staff(request, model = None, pk = None):
       if form.is_valid():
         form.save()
       # Passing new form to context to display errors
-      # and new key value pair to have popup displayed
+      # and new key-value pair to have popup displayed
       # at reload
       else:
         context['recipe_form'] = form
@@ -122,7 +121,11 @@ def staff(request, model = None, pk = None):
     elif model == 'blackboard':
       form = BlackboardForm(request.POST)
       if form.is_valid():
-        form.save()
+        try:
+          form.save()
+        except IntegrityError as e:
+          pass 
+          # Popup error?
       # Passing new form to context to display errors
       else:
         context['blackboard_form'] = form

@@ -13,7 +13,7 @@
           <nav>
           <div data-type='close' id='nav_div'>
             <div class='nav_div_item'>
-            <h1>Restaurant</h1>
+            <a href = {% url 'index' %}><h1>Restaurant</h1></a>
             </div>
             <ul class='navbar-nav'>
             {% if not user.is_authenticated %}

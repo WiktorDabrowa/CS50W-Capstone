@@ -46,6 +46,10 @@ html, body {
   border-radius: 50%;
   border: 3px solid var(--dark_yellow)
 }
+.wrapper a {
+  color:black;
+  text-decoration: none;
+}
 .index_slidein {
   transform:translateX(-100%);
   animation:slidein 1s cubic-bezier(0, 0, 0.2, 0.9) forwards
@@ -341,8 +345,9 @@ input:focus {
   position:absolute;
   right:-29px;
   top:calc(2em*0.2/2);
-  aspect-ratio: 1;
   height:80%;
+  aspect-ratio: 1;
+  padding:0;
   border:none;
   border-radius:50%;
   background-color: transparent;
@@ -352,13 +357,16 @@ input:focus {
   display:flex;
   justify-content: center;
   align-items: center;
+  text-align:center;
 }
 
 .delete_btn:hover, .validate_btn:hover{
   background-color: crimson;
   color:white;
   border:1px solid white
-
+}
+.validate_btn:hover{
+  background-color: green;
 }
 .delete_btn:focus{
   border:none;
@@ -628,7 +636,7 @@ input[type='checkbox'], input[type='radio'] {
  select option{
   font-size:10px
  }
- .delete_btn{
+ .delete_btn, .validate_btn{
   position:absolute;
   right:0;
   top:0;
@@ -645,10 +653,13 @@ input[type='checkbox'], input[type='radio'] {
   align-items: center;
   height:60px
 }
-.delete_btn:focus{
+.delete_btn:focus, .validate_btn:hover{
   border:none;
   outline:none;
   border-left:1px solid black;
   filter:brightness(0.7)
+}
+.delete_btn>svg, .validate_btn>svg {
+  transform: scale(2);
 }
 }
