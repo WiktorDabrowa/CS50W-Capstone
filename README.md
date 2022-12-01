@@ -141,8 +141,8 @@ On the backend side i had to learn about;
 - optional parameters in view functions
 
 # How to run
-All you have to do is download the files and start the server in the correctn directory with: "python manage.py runserver 0.0.0.0:8000" so it is accesible on your mobile phone ( if it`s connected to the same network).
+All you have to do is download the files and start the server in the correct directory with: "python manage.py runserver 0.0.0.0:8000" so it is accesible on your mobile phone ( if it`s connected to the same network).
 This project is submited with dummy data, ready for presentation, you can acces all of the functionality with this user/password pairs:
 1. Cook/Cookpassword
 2. Boss/Bosspassword
-3. superuser: admin/admin\
+3. superuser: admin/admin
